@@ -81,20 +81,21 @@ main {
 	border: 1px solid var(--g-border-color);
 	border-radius: 50px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	/* padding: 10px 20px; */
 }
 
 .global-toolbar input {
 	border: none;
+	height: 45px;
 }
 
 .search-font {
 	position: relative;
 	flex-wrap: nowrap;
 	width: 25%;
-	padding: 10px;
+	/* padding: 10px; */
 }
 
 .search-font input {
@@ -113,9 +114,15 @@ main {
 	top: 0;
 } */
 
+.toggle-theme {
+	position: relative;
+	padding-left: 10px;
+	border-left: 1px solid var(--g-border-color);
+}
+
 .type-something {
 	position: relative;
-	padding: 10px;
+	padding-left: 10px;
 	border-left: 1px solid var(--g-border-color);
 }
 

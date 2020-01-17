@@ -7,7 +7,7 @@
 html {
 	box-sizing: border-box;
 	font-family: "Roboto", sans-serif;
-	font-size: 0.6rem;
+	font-size: 1rem;
 }
 
 .flex {
@@ -28,7 +28,7 @@ button {
 }
 
 .material-icons {
-	font-size: 18px;
+	font-size: 24px;
 	color: rgba(0, 0, 0, 0.6);
 }
 
@@ -47,6 +47,7 @@ header {
 .menu-container li {
 	margin: 0 10px;
 	text-decoration: none !important;
+	font-size: 0.9rem;
 }
 
 .menu-container a {
@@ -88,13 +89,13 @@ main {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	height: 30px;
+	height: 44px;
 	/* padding: 10px 20px; */
 }
 
 .global-toolbar input {
 	border: none;
-	/* height: 45px; */
+	font-size: 1.1rem;
 }
 
 .global-toolbar > * input {
@@ -123,6 +124,9 @@ main {
 	padding-left: 10px;
 	border-left: 1px solid var(--g-border-color);
 }
+.type-something input {
+	border-bottom: 1px solid var(--g-border-color);
+}
 
 .change-font-size {
 	border-left: 1px solid var(--g-border-color);
@@ -130,10 +134,10 @@ main {
 
 .change-font-size__btn {
 	background-color: transparent;
-	color: black;
+	color: rgba(0, 0, 0, 0.6);
 	border: none;
 	display: flex;
-
+	font-size: 1.1rem;
 	/* padding: 10px; */
 }
 
@@ -172,12 +176,12 @@ main {
 		display: none;
 	}
 }
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 408px) {
 	html {
-		font-size: 0.5rem;
+		font-size: 0.8rem;
 	}
 }
-@media screen and (max-width: 308px) {
+@media screen and (max-width: 548px) {
 	.logo-brand-container {
 		margin-bottom: 10px;
 	}

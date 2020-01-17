@@ -9,6 +9,10 @@
 			rel="stylesheet"
 		/>
 		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<link
 			rel="icon"
 			href="https://www.gstatic.com/images/branding/product/ico/google_fonts_lodp.ico"
 		/>
@@ -30,8 +34,47 @@
 
 		<main>
 			<div class="global-toolbar">
-				<div class="search-font"></div>
-				<div class="search-font"></div>
+				<div class="search-font flex">
+					<i class="material-icons">
+						search
+					</i>
+					<input
+						type="text"
+						placeholder="Search fonts"
+						class="search-font__input"
+					/>
+				</div>
+				<div class="type-something">
+					<input
+						type="text"
+						placeholder="Type something"
+						class="type-something__input"
+					/>
+				</div>
+				<div class="change-font-size flex">
+					<button class="change-font-size__btn">40px</button>
+				</div>
+				<div class="change-theme">
+					<button class="toggle-theme">
+						<i class="material-icons">
+							invert_colors
+						</i>
+					</button>
+				</div>
+				<div class="toggle-view">
+					<button class="toggle-view__btn">
+						<i class="material-icons">
+							list
+						</i>
+					</button>
+				</div>
+				<div class="refresh">
+					<button class="refresh__btn">
+						<i class="material-icons">
+							refresh
+						</i>
+					</button>
+				</div>
 			</div>
 			<section></section>
 		</main>

@@ -17,6 +17,12 @@ html {
 	align-items: center;
 }
 
+button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
 :root {
 	--g-border-color: rgba(0, 0, 0, 0.14);
 }
@@ -75,5 +81,50 @@ main {
 	border: 1px solid var(--g-border-color);
 	border-radius: 50px;
 	display: flex;
-	height: 100px;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+	/* height: 100px; */
+}
+
+.global-toolbar input {
+	border: none;
+}
+
+.change-font-size__btn {
+	background-color: transparent;
+	color: black;
+	border: none;
+	/* display: block; */
+	display: flex;
+}
+
+.change-font-size__btn::after {
+	color: #ff5252;
+	/* display: inline-block; */
+	content: "\0025bc";
+	position: relative;
+	speak: none;
+	font-size: 13px;
+	transform: scaleY(0.5) scaleX(1);
+	top: 0;
+	right: -2px;
+	background: transparent !important;
+}
+
+.change-font-size__btn::after {
+	cursor: pointer;
+}
+
+.change-theme {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.change-theme_white,
+.change-theme_black {
+	height: 20px;
+	border: 1px solid black;
+	border-radius: 50%;
 }

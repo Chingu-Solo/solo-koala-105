@@ -1,0 +1,79 @@
+/********** GLOBAL **********/
+
+* {
+	margin: 0;
+}
+
+html {
+	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+	font-size: 14px;
+}
+
+.flex {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+:root {
+	--g-border-color: rgba(0, 0, 0, 0.14);
+}
+
+/********** HEADER **********/
+
+header {
+	padding: 30px 40px;
+	border-bottom: 1px solid var(--g-border-color);
+	margin-bottom: 25px;
+}
+
+.menu-container {
+	list-style: none;
+}
+
+.menu-container li {
+	margin: 0 10px;
+	text-decoration: none !important;
+}
+
+.menu-container a {
+	font-family: inherit;
+	font-weight: 500;
+	text-decoration: none !important;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+.logo {
+	background-image: url("https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_dark_color_74x24dp.png");
+	width: 74px;
+	height: 24px;
+	background-size: 74px 24px;
+	display: inline-block;
+	opacity: 0.6;
+}
+
+.brand {
+	font-family: "Product Sans", Arial, Helvetica, sans-serif;
+	position: relative;
+	top: -6px;
+	/* left: -5px; */
+	font-size: 22px;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	opacity: 0.6;
+}
+
+/********** MAIN **********/
+
+main {
+	padding: 30px 40px;
+}
+
+.global-toolbar {
+	border: 1px solid var(--g-border-color);
+	border-radius: 50px;
+	display: flex;
+	height: 100px;
+}

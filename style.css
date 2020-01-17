@@ -80,7 +80,7 @@ header {
 /********** MAIN **********/
 
 main {
-	padding: 10px 20px;
+	padding: 1.3rem 4rem;
 }
 
 .global-toolbar {
@@ -157,6 +157,24 @@ main {
 	z-index: 1;
 	background-color: white;
 }
+
+/********** Grid list **********/
+
+.grid-list {
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.grid-list .test {
+	min-width: 400px;
+	max-width: 500px;
+	height: 300px;
+	border-top: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+/********** Media queries **********/
 
 @media screen and (max-width: 650px) {
 	.type-something,

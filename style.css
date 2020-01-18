@@ -10,6 +10,25 @@ html {
 	font-size: 1rem;
 }
 
+body[black] {
+	background-color: black;
+	color: rgb(238, 238, 238);
+	--g-border-color: rgb(238, 238, 238);
+	--g-font-color-grey: rgb(238, 238, 238);
+}
+
+body[black] input {
+	color: rgb(238, 238, 238);
+}
+body[black] .font-info-container {
+	border-color: rgb(238, 238, 238);
+}
+
+body {
+	--g-border-color: #00000024;
+	--g-font-color-grey: #00000099;
+}
+
 .flex {
 	display: flex;
 	justify-content: space-between;
@@ -23,18 +42,21 @@ button {
 	cursor: pointer;
 }
 
-:root {
-	--g-border-color: rgba(0, 0, 0, 0.14);
-	--g-font-color-grey: rgba(0, 0, 0, 0.6);
-}
+/* :root {
+	--g-border-color: #00000024;
+	--g-font-color-grey: #00000099;
+} */
 
-.global-toolbar .material-icons {
-	font-size: 24px;
-	color: var(--g-font-color-grey);
+.material-icons {
+	cursor: pointer;
 }
 
 [contenteditable]:focus {
 	outline: 0px solid transparent;
+}
+
+input {
+	background-color: inherit;
 }
 
 /********** HEADER **********/
@@ -99,6 +121,11 @@ main {
 	/* padding: 10px 20px; */
 }
 
+.global-toolbar .material-icons {
+	font-size: 24px;
+	color: var(--g-font-color-grey);
+}
+
 .global-toolbar input {
 	border: none;
 	font-size: 1.1rem;
@@ -161,7 +188,7 @@ main {
 
 .refresh {
 	z-index: 1;
-	background-color: white;
+	background-color: inherit;
 }
 
 /********** Grid list **********/
@@ -184,6 +211,7 @@ main {
 .font-info-container h2 {
 	font-size: inherit;
 	font-weight: 500;
+	padding: 10px 0;
 }
 
 .font-info-container h2 {
@@ -214,9 +242,13 @@ main {
 	min-width: 0;
 }
 
+/* .add-font {
+	curs
+} */
+
 /********** Media queries **********/
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 720px) {
 	.type-something,
 	.toggle-view {
 		display: none;
@@ -249,5 +281,8 @@ main {
 	}
 	.font-info-container {
 		min-width: 15rem;
+	}
+	.search-font {
+		width: 40%;
 	}
 }

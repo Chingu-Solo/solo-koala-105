@@ -16,6 +16,10 @@ body[black] {
 	--g-border-color: rgb(238, 238, 238);
 	--g-font-color-grey: rgb(238, 238, 238);
 }
+body[black] .logo,
+body[black] .brand {
+	opacity: 1;
+}
 
 body[black] input {
 	color: rgb(238, 238, 238);

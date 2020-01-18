@@ -25,11 +25,16 @@ button {
 
 :root {
 	--g-border-color: rgba(0, 0, 0, 0.14);
+	--g-font-color-grey: rgba(0, 0, 0, 0.6);
 }
 
-.material-icons {
+.global-toolbar .material-icons {
 	font-size: 24px;
-	color: rgba(0, 0, 0, 0.6);
+	color: var(--g-font-color-grey);
+}
+
+[contenteditable]:focus {
+	outline: 0px solid transparent;
 }
 
 /********** HEADER **********/
@@ -54,7 +59,7 @@ header {
 	font-family: inherit;
 	font-weight: 500;
 	text-decoration: none !important;
-	color: rgba(0, 0, 0, 0.6);
+	color: var(--g-font-color-grey);
 }
 
 .logo {
@@ -90,6 +95,7 @@ main {
 	justify-content: space-around;
 	align-items: center;
 	height: 44px;
+	margin-bottom: 30px;
 	/* padding: 10px 20px; */
 }
 
@@ -167,11 +173,45 @@ main {
 	justify-content: space-around;
 }
 
-.grid-list .test {
-	min-width: 400px;
-	max-width: 500px;
-	height: 300px;
+.font-info-container {
+	min-width: 30rem;
+	max-width: 25rem;
+	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.font-info-container h1,
+.font-info-container h2 {
+	font-size: inherit;
+	font-weight: 500;
+}
+
+.font-info-container h2 {
+	color: var(--g-font-color-grey);
+}
+
+.font-info-container .material-icons {
+	color: rgb(250, 87, 89);
+}
+
+.font-info span {
+	overflow-wrap: break-word;
+	display: inline-block;
+	padding-top: 30px;
+}
+
+.font-overview {
+	height: 200px;
+	width: 25rem;
+	border: none;
+	font-size: 20px;
+}
+
+.font-overview input {
+	flex: 1;
+	display: block;
+	border: none;
+	min-width: 0;
 }
 
 /********** Media queries **********/
@@ -193,6 +233,10 @@ main {
 	.change-font-size {
 		display: none;
 	}
+	header {
+		font-size: 0.6rem;
+		padding: 1rem;
+	}
 }
 @media screen and (max-width: 408px) {
 	html {
@@ -202,5 +246,8 @@ main {
 @media screen and (max-width: 548px) {
 	.logo-brand-container {
 		margin-bottom: 10px;
+	}
+	.font-info-container {
+		min-width: 15rem;
 	}
 }

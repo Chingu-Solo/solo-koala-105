@@ -28,14 +28,18 @@ inputFontTyped.addEventListener("input", e => {
 	}
 });
 
-/* searchFont.addEventListener("input", e => {}); */
+const fonts = new Fonts();
+fonts.getGFonts();
 
-const getGFonts = async () => {
+/* Fonts.getGFonts(); */
+
+/* const getGFonts = async () => {
 	const jsonFonts = await fetch(
 		"https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAjfp0YTzzzGDEWaGuXoN4imwRA4bTSwrM "
 	);
 	const gFonts = await jsonFonts.json();
-	console.log(gFonts);
+	
+	console.log(gFonts.items[0]);
 };
 
-getGFonts();
+getGFonts(); */

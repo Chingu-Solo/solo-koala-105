@@ -18,8 +18,6 @@ togglethemeBtn.addEventListener("click", () => {
 
 inputFontTyped.addEventListener("input", e => {
 	for (let i = 0; i < spanEditable.length; i++) {
-		console.log(e.target.value.length === 0);
-
 		if (e.target.value.length === 0) {
 			for (let i = 0; i < spanEditable.length; i++) {
 				spanEditable[i].textContent = "Write something";
@@ -30,4 +28,14 @@ inputFontTyped.addEventListener("input", e => {
 	}
 });
 
-searchFont.addEventListener("input", e => {});
+/* searchFont.addEventListener("input", e => {}); */
+
+const getGFonts = async () => {
+	const jsonFonts = await fetch(
+		"https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAjfp0YTzzzGDEWaGuXoN4imwRA4bTSwrM "
+	);
+	const gFonts = await jsonFonts.json();
+	console.log(gFonts);
+};
+
+getGFonts();

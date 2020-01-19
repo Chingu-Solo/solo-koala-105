@@ -30,7 +30,7 @@ body[black] .change-font-size__btn {
 	color: #ff5252 !important;
 }
 
-body[black] .font-info-container {
+body[black] .font-info {
 	border-color: rgb(238, 238, 238);
 }
 
@@ -210,25 +210,25 @@ main {
 	justify-content: space-around;
 }
 
-.font-info-container {
+.font-info {
 	min-width: 30rem;
 	max-width: 25rem;
 	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.font-info-container h1,
-.font-info-container h2 {
+.font-info h1,
+.font-info h2 {
 	font-size: inherit;
 	font-weight: 500;
 	padding: 10px 0;
 }
 
-.font-info-container h2 {
+.font-info h2 {
 	color: var(--g-font-color-grey);
 }
 
-.font-info-container .material-icons {
+.font-info .material-icons {
 	color: rgb(250, 87, 89);
 }
 
@@ -252,15 +252,14 @@ main {
 	min-width: 0;
 }
 
-/* .add-font {
-	curs
-} */
+.fontest {
+	font-family: "Open Sans Condensed", sans-serif;
+}
 
 /********** Media queries **********/
 
 @media screen and (max-width: 911px) {
 	main {
-		/* padding: 1.3rem 4rem; */
 		margin: 0 5rem;
 	}
 }
@@ -296,7 +295,7 @@ main {
 	.logo-brand-container {
 		margin-bottom: 10px;
 	}
-	.font-info-container {
+	.font-info {
 		min-width: 15rem;
 	}
 	.search-font {

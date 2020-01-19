@@ -1,4 +1,4 @@
-import Fonts from "./components/fonts.js";
+import fonts from "./components/fonts.js";
 
-const fonts = new Fonts();
+/* const fonts = new Fonts(); */
 fonts.getGFonts();

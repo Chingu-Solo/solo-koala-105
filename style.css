@@ -199,6 +199,7 @@ main {
 
 .change-font-size {
 	border-left: 1px solid var(--g-border-color);
+	flex-wrap: nowrap;
 }
 
 .change-font-size__btn {
@@ -236,14 +237,16 @@ main {
 }
 
 .font-info {
-	min-width: 30rem;
-	max-width: 25rem;
+	min-width: 45%;
+	/* min-width: 30rem; */
+	max-width: 100%;
+	/* max-width: 25rem; */
 	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 .font-info[wide] {
 	min-width: 100%;
-	max-width: 25rem;
+	/* max-width: 25rem; */
 	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
@@ -291,7 +294,7 @@ main {
 
 #go-to-top {
 	display: none;
-	padding: 30px;
+	padding: 20px;
 	background-color: white;
 	border-radius: 50%;
 	position: fixed;
@@ -312,6 +315,9 @@ main {
 	.type-something,
 	.toggle-view {
 		display: none;
+	}
+	.font-info {
+		min-width: 100%;
 	}
 	.menu-container {
 		padding-left: 0;
@@ -339,9 +345,9 @@ main {
 	.logo-brand-container {
 		margin-bottom: 10px;
 	}
-	.font-info {
+	/* .font-info {
 		min-width: 15rem;
-	}
+	} */
 	.search-font {
 		width: 40%;
 	}

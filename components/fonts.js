@@ -20,13 +20,18 @@ class Fonts {
 	};
 
 	createFontContainer = fontsList => {
+		console.log(fontsList);
+		let gridList = document.querySelector(".grid-list");
+		/* gridList.innerHTML = ""; */
 		fontsList.forEach(fonts => {
-			let gridList = document.querySelector(".grid-list");
 			const templateFont = Template(fonts);
 			gridList.appendChild(templateFont);
 		});
+
 		EventHandler();
 	};
 }
 
-export default Fonts;
+const fonts = new Fonts();
+
+export default fonts;

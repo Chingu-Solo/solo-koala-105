@@ -13,6 +13,14 @@ html {
 .down-arrow {
 	color: #ff5252 !important;
 }
+.up-arrow {
+	color: #ff5252 !important;
+
+	transform: scaleX(-1) !important;
+	-moz-transform: scaleX(-1) !important;
+	-webkit-transform: scaleX(-1) !important;
+	-ms-transform: scaleX(-1) !important;
+}
 
 body {
 	--g-border-color: #00000024;
@@ -65,6 +73,9 @@ body[black] .brand {
 body[black] input,
 body[black] .change-font-size__btn {
 	color: rgb(238, 238, 238);
+}
+body[black] .global-toolbar[fixed-nav] {
+	background-color: #222222;
 }
 
 body[black] .font-info {
@@ -124,6 +135,7 @@ main {
 }
 
 .global-toolbar {
+	/* position: fixed; */
 	border: 1px solid var(--g-border-color);
 	border-radius: 50px;
 	display: flex;
@@ -132,6 +144,17 @@ main {
 	height: 35px;
 	margin-bottom: 30px;
 	padding: 5px;
+	/* transition: all 2s ease-out; */
+}
+.global-toolbar[fixed-nav] {
+	position: sticky;
+	/* position: fixed; */
+	/* width: 100%; */
+	top: 0px;
+	left: 0px;
+	/* margin-bottom: 40px; */
+	background-color: white;
+	/* transform: scale(1, 0.2); */
 }
 
 .global-toolbar .material-icons {
@@ -262,6 +285,19 @@ main {
 
 .fontest {
 	font-family: "Open Sans Condensed", sans-serif;
+}
+
+/********** GO TO TOP BUTTON **********/
+
+#go-to-top {
+	display: none;
+	padding: 30px;
+	background-color: white;
+	border-radius: 50%;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
 /********** Media queries **********/

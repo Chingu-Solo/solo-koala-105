@@ -1,10 +1,15 @@
 import Fonts from "./components/fonts.js";
 
-let togglethemeBtn = document.querySelector(".toggle-theme__btn");
+const fonts = new Fonts();
+fonts.getGFonts();
+
+/* let togglethemeBtn = document.querySelector(".toggle-theme__btn");
 let toggleColor = false;
 let inputFontTyped = document.querySelector(".type-something__input");
 let spanEditable = document.querySelectorAll(".spanEditable");
 let searchFont = document.querySelectorAll(".search-font__input");
+let toggleViewBtn = document.querySelector(".toggle-view__btn");
+let fontInfoContainer = document.querySelectorAll(".font-info");
 
 togglethemeBtn.addEventListener("click", () => {
 	let body = document.body;
@@ -28,18 +33,11 @@ inputFontTyped.addEventListener("input", e => {
 	}
 });
 
-const fonts = new Fonts();
-fonts.getGFonts();
-
-/* Fonts.getGFonts(); */
-
-/* const getGFonts = async () => {
-	const jsonFonts = await fetch(
-		"https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAjfp0YTzzzGDEWaGuXoN4imwRA4bTSwrM "
-	);
-	const gFonts = await jsonFonts.json();
-	
-	console.log(gFonts.items[0]);
-};
-
-getGFonts(); */
+toggleViewBtn.addEventListener("click", () => {
+	for (let i = 0; i < fontInfoContainer.length; i++) {
+		if (fontInfoContainer[i].hasAttribute("wide"))
+			fontInfoContainer[i].removeAttribute("wide");
+		else fontInfoContainer[i].setAttribute("wide", "");
+	}
+}); */
+/* fonts.createFontContainer(); */

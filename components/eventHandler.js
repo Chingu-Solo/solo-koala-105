@@ -106,9 +106,9 @@ const EventHandler = () => {
 
 	// * Load fonts an scroll
 	document.addEventListener("scroll", () => {
-		let test =
+		let endPointScroll =
 			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
-		if (test < 200) {
+		if (endPointScroll < 200) {
 			fonts.handleFontsLoad();
 			fontInfoContainer = document.querySelectorAll(".font-info");
 		}

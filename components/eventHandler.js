@@ -7,7 +7,7 @@ const EventHandler = () => {
 	const togglethemeBtn = document.querySelector(".toggle-theme__btn");
 	let toggleColor = false;
 	const inputFontTyped = document.querySelector(".type-something__input");
-	const spanEditable = document.querySelectorAll(".spanEditable");
+	let spanEditable = document.querySelectorAll(".spanEditable");
 	const searchFont = document.querySelectorAll(".search-font__input");
 	const toggleViewBtn = document.querySelector(".toggle-view__btn");
 	let fontInfoContainer = document.querySelectorAll(".font-info");
@@ -111,6 +111,7 @@ const EventHandler = () => {
 		if (endPointScroll < 200) {
 			fonts.handleFontsLoad();
 			fontInfoContainer = document.querySelectorAll(".font-info");
+			spanEditable = document.querySelectorAll(".spanEditable");
 		}
 	});
 };

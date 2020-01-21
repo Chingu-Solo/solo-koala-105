@@ -20,7 +20,7 @@ const HTMLTemplate = (fonts, toggleWide) => {
 	addIcon.textContent = "add_circle_outline";
 	spanEditable.classList.add("spanEditable");
 	spanEditable.setAttribute("contenteditable", "true");
-	spanEditable.textContent = "Do u like my font style?";
+	spanEditable.textContent = `I'm the ${fonts.family} font style! Do you like it?`;
 	spanEditable.style.fontFamily = fonts.family;
 	fontName.textContent = fonts.family;
 	fontName.style.fontFamily = fonts.family;

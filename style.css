@@ -200,6 +200,7 @@ main {
 .change-font-size {
 	border-left: 1px solid var(--g-border-color);
 	flex-wrap: nowrap;
+	position: relative;
 }
 
 .change-font-size__btn {
@@ -208,9 +209,24 @@ main {
 	border: none;
 	display: flex;
 	font-size: 1.1rem;
+	z-index: 10;
 	/* padding: 10px; */
 }
 
+.down-arrow {
+	z-index: 10;
+}
+
+.show-size {
+	display: none;
+	position: absolute;
+	width: 130px;
+	height: 130px;
+	background-color: red;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
 /* .change-font-size__btn::after {
 	color: #ff5252;
 	content: "\0025bc";
@@ -237,10 +253,10 @@ main {
 }
 
 .font-info {
-	min-width: 45%;
-	/* min-width: 30rem; */
-	max-width: 100%;
-	/* max-width: 25rem; */
+	/* min-width: 45%; */
+	min-width: 23rem;
+	/* max-width: 100%; */
+	max-width: 23rem;
 	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
@@ -308,6 +324,11 @@ main {
 @media screen and (max-width: 911px) {
 	main {
 		margin: 0 5rem;
+	}
+}
+@media screen and (max-width: 1038px) {
+	.font-info {
+		min-width: 100%;
 	}
 }
 

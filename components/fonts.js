@@ -6,6 +6,7 @@ class Fonts {
 	constructor() {
 		this.state = {
 			fontsList: [],
+			/* templateFonts: [], */
 			stock: [],
 			fontsListIndex: 0,
 			incrementor: 10,
@@ -41,13 +42,26 @@ class Fonts {
 		}
 		this.state.fontsListIndex += incrementor;
 		this.createURL();
-		return fontsList;
+
+		/* return fontsList; */
 	};
 
-	createFontContainer = font => {
+	createFontContainer = (font, search) => {
 		let gridList = document.querySelector(".grid-list");
-		const templateFont = Template(font, this.state.toggleWide);
-		gridList.appendChild(templateFont);
+		if (search) {
+			gridList.innerHTML = "";
+
+			for (let f of font) {
+				const templateFont = Template(f, this.state.toggleWide);
+
+				gridList.appendChild(templateFont);
+			}
+		} else {
+			const templateFont = Template(font, this.state.toggleWide);
+
+			/* this.state.templateFonts.push(templateFont); */
+			gridList.appendChild(templateFont);
+		}
 	};
 
 	handleUrlFonts = fontsList => {

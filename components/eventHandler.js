@@ -14,8 +14,15 @@ const EventHandler = () => {
 	const goToTop = document.getElementById("go-to-top");
 	const head = document.getElementsByTagName("head")[0];
 	const link = document.createElement("link");
+	const changeFontSize = document.querySelector(".down-arrow");
 
-	console.log(fontInfoContainer);
+	changeFontSize.addEventListener("click", () => {
+		document.querySelector(".show-size").style.display === "block"
+			? (document.querySelector(".show-size").style.display = "none")
+			: (document.querySelector(".show-size").style.display = "block");
+		/* document.querySelector(".show-size").style.display = "block"; */
+		/* changeFontSize.classList.add("show-sizes"); */
+	});
 
 	togglethemeBtn.addEventListener("click", () => {
 		const body = document.body;
@@ -31,7 +38,7 @@ const EventHandler = () => {
 		for (let i = 0; i < spanEditable.length; i++) {
 			if (e.target.value.length === 0) {
 				for (let i = 0; i < spanEditable.length; i++) {
-					spanEditable[i].textContent = "Write something";
+					spanEditable[i].textContent = "Try my font by writing something";
 				}
 			} else {
 				spanEditable[i].textContent = e.target.value;
@@ -47,19 +54,6 @@ const EventHandler = () => {
 			else fontInfo.setAttribute("wide", "");
 		});
 	});
-	/* toggleViewBtn.addEventListener("click", () => {
-		for (let i = 0; i < fontInfoContainer.length; i++) {
-			console.log(fontInfoContainer[i]);
-			if (fontInfoContainer[i].hasAttribute("wide"))
-				fontInfoContainer[i].removeAttribute("wide");
-			else fontInfoContainer[i].setAttribute("wide", "");
-		}
-	}); */
-	/* toggleViewBtn.addEventListener("click", () => {
-		fonts.state.toggleWide = !fonts.state.toggleWide;
-		Template(fonts.state.fontsList, fonts.state.toggleWide);
-		console.log(fonts.state.toggleWide);
-	}); */
 
 	window.onscroll = () => {
 		onScroll();
@@ -94,14 +88,14 @@ const EventHandler = () => {
 	};
 
 	searchFont[0].addEventListener("input", e => {
-		/* console.log(e.target.value); */
-
-		const test = fonts.state.fontsList.filter(font =>
+		// const filterFonts = fonts.state.stock.items.filter
+		// or const filterFonts = fonts.state.fontsList.filter...
+		const filterFonts = fonts.state.fontsList.filter(font =>
 			font.family.toLowerCase().includes(e.target.value.toLowerCase())
 		);
-		/* console.log(test); */
 
-		/* fonts.createFontContainer(test); */
+		let search = true;
+		fonts.createFontContainer(filterFonts, search);
 	});
 
 	// * Load fonts an scroll

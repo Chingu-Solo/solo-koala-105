@@ -84,6 +84,15 @@ const EventHandler = () => {
 
 		/* fonts.createFontContainer(test); */
 	});
+
+	// * Load fonts an scroll
+	document.addEventListener("click", () => {
+		let test =
+			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
+		if (test < 200) {
+			fonts.getGFonts();
+		}
+	});
 };
 
 export default EventHandler;

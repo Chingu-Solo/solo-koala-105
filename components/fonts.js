@@ -5,30 +5,43 @@ import { config } from "../config.js";
 class Fonts {
 	constructor() {
 		this.state = {
-			fontsList: []
+			fontsList: [],
+			stock: [],
+			fontsListIndex: 0,
+			incrementor: 10
 		};
 	}
 
 	getGFonts = async () => {
+		/* let { fontsList, fontsListIndex, incrementor } = this.state; */
+
 		const jsonFonts = await fetch(
 			`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${config.apiKey}`
 		);
 		try {
 			const gFonts = await jsonFonts.json();
-			for (let i = 0; i < 10; i++) {
-				this.state.fontsList.push(gFonts.items[i]);
-			}
-			this.createFontContainer(this.state.fontsList);
-			this.handleUrlFonts(this.state.fontsList);
+			this.state.stock = gFonts;
+			let fontsListLoaded = this.handleFontsLoad(gFonts);
+
+			this.createFontContainer(fontsListLoaded);
+			this.handleUrlFonts(fontsListLoaded);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	handleFontsLoad = fonts => {
+		let { fontsList, fontsListIndex, incrementor } = this.state;
+		for (let i = fontsListIndex; i < fontsListIndex + incrementor; i++) {
+			fontsList.push(fonts.items[i]);
+		}
+		this.state.fontsListIndex += incrementor;
+		return fontsList;
+	};
+
 	createFontContainer = fontsList => {
-		/* 		console.log(fontsList); */
 		let gridList = document.querySelector(".grid-list");
-		/* gridList.innerHTML = ""; */
+
 		fontsList.forEach(fonts => {
 			const templateFont = Template(fonts);
 			gridList.appendChild(templateFont);

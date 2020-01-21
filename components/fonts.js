@@ -10,13 +10,12 @@ class Fonts {
 			fontsListIndex: 0,
 			incrementor: 10,
 			apiURL: ["https://fonts.googleapis.com/css?family="],
-			finalURL: []
+			finalURL: [],
+			toggleWide: false
 		};
 	}
 
 	getGFonts = async () => {
-		/* let { fontsList, fontsListIndex, incrementor } = this.state; */
-
 		const jsonFonts = await fetch(
 			`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${config.apiKey}`
 		);
@@ -24,20 +23,16 @@ class Fonts {
 			const gFonts = await jsonFonts.json();
 			this.state.stock = gFonts;
 			this.handleFontsLoad();
-			/* let fontsListLoaded = this.handleFontsLoad(gFonts); */
-			/* this.createFontContainer(fontsListLoaded);
-			this.handleUrlFonts(fontsListLoaded); */
-
-			/* this.createFontContainer(); */
-			/* this.handleUrlFonts(); */
 		} catch (error) {
 			console.log(error);
 		}
+		await EventHandler();
+
+		console.log("apicalls");
 	};
 
 	handleFontsLoad = () => {
 		let { fontsList, fontsListIndex, incrementor, stock } = this.state;
-		console.log(stock, fontsList);
 
 		for (let i = fontsListIndex; i < fontsListIndex + incrementor; i++) {
 			fontsList.push(stock.items[i]);
@@ -46,46 +41,19 @@ class Fonts {
 		}
 		this.state.fontsListIndex += incrementor;
 		this.createURL();
-		/* return fontsList; */
+		return fontsList;
 	};
 
 	createFontContainer = font => {
 		let gridList = document.querySelector(".grid-list");
-		const templateFont = Template(font);
+		const templateFont = Template(font, this.state.toggleWide);
 		gridList.appendChild(templateFont);
-
-		/* 	let { fontsList, fontsListIndex, incrementor, stock } = this.state;
-		let gridList = document.querySelector(".grid-list");
-
-		fontsList.forEach(fonts => {
-			const templateFont = Template(fonts);
-			gridList.appendChild(templateFont);
-		}); */
-
-		EventHandler();
 	};
 
 	handleUrlFonts = fontsList => {
-		/* let apiURL = "https://fonts.googleapis.com/css?family="; */
 		let regexSpace = / /g;
-		let test = fontsList.family.replace(regexSpace, "+");
-		this.state.apiURL.push(test);
-		/* this.state.apiURL += `${test}`; */
-		/* fontsList.map((fonts, i, arr) => {
-			let { family: fontFamily } = fonts;
-			fontFamily = fontFamily.replace(regexSpace, "+");
-			i === 0
-				? (apiURL += `${fontFamily}`)
-				: i === arr.length - 1
-				? (apiURL += `|${fontFamily}&display=swap`)
-				: (apiURL += `|${fontFamily}`);
-		}); */
-		/* console.log(this.state.apiURL); */
-
-		/* let linkUrl = document.createElement("link");
-		linkUrl.setAttribute("href", `${this.state.apiURL}`);
-		linkUrl.setAttribute("rel", "stylesheet");
-		document.head.appendChild(linkUrl); */
+		let formattedFont = fontsList.family.replace(regexSpace, "+");
+		this.state.apiURL.push(formattedFont);
 	};
 
 	createURL = () => {
@@ -98,14 +66,13 @@ class Fonts {
 				: this.state.finalURL.push(`|${name}`);
 		});
 
-		let fontsURL = this.state.finalURL.join("");
+		let finalURL = this.state.finalURL.join("");
 		let linkUrl = document.createElement("link");
-		linkUrl.setAttribute("href", `${fontsURL}`);
+		linkUrl.setAttribute("href", `${finalURL}`);
 		linkUrl.setAttribute("rel", "stylesheet");
 		linkUrl.setAttribute("id", "fonts-url");
 
 		let HTMLlink = document.getElementById("fonts-url");
-		/* console.log(HTMLlink); */
 
 		if (HTMLlink) {
 			HTMLlink.remove();

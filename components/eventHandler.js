@@ -1,16 +1,21 @@
 import fonts from "./fonts.js";
+import Template from "./template.js";
 
 const EventHandler = () => {
+	console.log("launch");
+
 	const togglethemeBtn = document.querySelector(".toggle-theme__btn");
 	let toggleColor = false;
 	const inputFontTyped = document.querySelector(".type-something__input");
 	const spanEditable = document.querySelectorAll(".spanEditable");
 	const searchFont = document.querySelectorAll(".search-font__input");
 	const toggleViewBtn = document.querySelector(".toggle-view__btn");
-	const fontInfoContainer = document.querySelectorAll(".font-info");
+	let fontInfoContainer = document.querySelectorAll(".font-info");
 	const goToTop = document.getElementById("go-to-top");
 	const head = document.getElementsByTagName("head")[0];
 	const link = document.createElement("link");
+
+	console.log(fontInfoContainer);
 
 	togglethemeBtn.addEventListener("click", () => {
 		const body = document.body;
@@ -35,12 +40,26 @@ const EventHandler = () => {
 	});
 
 	toggleViewBtn.addEventListener("click", () => {
+		console.log(fontInfoContainer);
+
+		fontInfoContainer.forEach(fontInfo => {
+			if (fontInfo.hasAttribute("wide")) fontInfo.removeAttribute("wide");
+			else fontInfo.setAttribute("wide", "");
+		});
+	});
+	/* toggleViewBtn.addEventListener("click", () => {
 		for (let i = 0; i < fontInfoContainer.length; i++) {
+			console.log(fontInfoContainer[i]);
 			if (fontInfoContainer[i].hasAttribute("wide"))
 				fontInfoContainer[i].removeAttribute("wide");
 			else fontInfoContainer[i].setAttribute("wide", "");
 		}
-	});
+	}); */
+	/* toggleViewBtn.addEventListener("click", () => {
+		fonts.state.toggleWide = !fonts.state.toggleWide;
+		Template(fonts.state.fontsList, fonts.state.toggleWide);
+		console.log(fonts.state.toggleWide);
+	}); */
 
 	window.onscroll = () => {
 		onScroll();
@@ -91,6 +110,7 @@ const EventHandler = () => {
 			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
 		if (test < 200) {
 			fonts.handleFontsLoad();
+			fontInfoContainer = document.querySelectorAll(".font-info");
 		}
 	});
 };

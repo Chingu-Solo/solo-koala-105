@@ -75,12 +75,12 @@ const EventHandler = () => {
 	};
 
 	searchFont[0].addEventListener("input", e => {
-		console.log(e.target.value);
-		/* console.log(fonts.state.fontsList); */
+		/* console.log(e.target.value); */
+
 		const test = fonts.state.fontsList.filter(font =>
 			font.family.toLowerCase().includes(e.target.value.toLowerCase())
 		);
-		console.log(test);
+		/* console.log(test); */
 
 		/* fonts.createFontContainer(test); */
 	});

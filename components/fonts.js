@@ -2,8 +2,6 @@ import Template from "./template.js";
 import EventHandler from "./eventHandler.js";
 import { config } from "../config.js";
 
-console.log(config.apiKey);
-
 class Fonts {
 	constructor() {
 		this.state = {
@@ -21,6 +19,7 @@ class Fonts {
 				this.state.fontsList.push(gFonts.items[i]);
 			}
 			this.createFontContainer(this.state.fontsList);
+			this.handleUrlFonts(this.state.fontsList);
 		} catch (error) {
 			console.log(error);
 		}
@@ -36,6 +35,25 @@ class Fonts {
 		});
 
 		EventHandler();
+	};
+
+	handleUrlFonts = fontsList => {
+		let apiURL = "https://fonts.googleapis.com/css?family=";
+		let regexSpace = / /g;
+
+		fontsList.map((fonts, i, arr) => {
+			let { family: fontFamily } = fonts;
+			fontFamily = fontFamily.replace(regexSpace, "+");
+			i === 0
+				? (apiURL += `${fontFamily}`)
+				: i === arr.length - 1
+				? (apiURL += `|${fontFamily}&display=swap`)
+				: (apiURL += `|${fontFamily}`);
+		});
+		let linkUrl = document.createElement("link");
+		linkUrl.setAttribute("href", `${apiURL}`);
+		linkUrl.setAttribute("rel", "stylesheet");
+		document.head.appendChild(linkUrl);
 	};
 }
 

@@ -251,6 +251,9 @@ main {
 	flex-wrap: wrap;
 	justify-content: space-around;
 }
+.grid-list[wide] .font-info {
+	min-width: 100%;
+}
 
 .font-info {
 	/* min-width: 45%; */

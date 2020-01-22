@@ -9,7 +9,7 @@ class Fonts {
 			/* templateFonts: [], */
 			stock: [],
 			fontsListIndex: 0,
-			incrementor: 20,
+			incrementor: 5,
 			apiURL: ["https://fonts.googleapis.com/css?family="],
 			finalURL: [],
 			toggleWide: false
@@ -17,13 +17,17 @@ class Fonts {
 	}
 
 	getGFonts = async () => {
+		this.state.fontsList = [];
+		this.state.fontsListIndex = 0;
+		let gridList = document.querySelector(".grid-list");
+		gridList.innerHTML = "";
 		const jsonFonts = await fetch(
 			`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${config.apiKey}`
 		);
 		try {
 			const gFonts = await jsonFonts.json();
 			this.state.stock = gFonts;
-			this.handleFontsLoad();
+			await this.handleFontsLoad();
 		} catch (error) {
 			console.log(error);
 		}

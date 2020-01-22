@@ -15,6 +15,11 @@ const EventHandler = () => {
 	const head = document.getElementsByTagName("head")[0];
 	const link = document.createElement("link");
 	const changeFontSize = document.querySelector(".down-arrow");
+	const refreshBtn = document.querySelector(".refresh__btn");
+
+	refreshBtn.addEventListener("click", () => {
+		fonts.getGFonts();
+	});
 
 	changeFontSize.addEventListener("click", () => {
 		document.querySelector(".show-size").style.display === "block"
@@ -48,13 +53,19 @@ const EventHandler = () => {
 	});
 
 	toggleViewBtn.addEventListener("click", () => {
-		/* console.log(fontInfoContainer); */
-		fontInfoContainer = document.querySelectorAll(".font-info");
-		fontInfoContainer.forEach(fontInfo => {
-			if (fontInfo.hasAttribute("wide")) fontInfo.removeAttribute("wide");
-			else fontInfo.setAttribute("wide", "");
-		});
+		let gridList = document.querySelector(".grid-list");
+		gridList.hasAttribute("wide")
+			? gridList.removeAttribute("wide")
+			: gridList.setAttribute("wide", "");
+		/* handleWideClass(); */
 	});
+
+	/* const handleWideClass = () => {
+		let gridList = document.querySelector(".grid-list");
+		gridList.hasAttribute("wide")
+			? gridList.removeAttribute("wide")
+			: gridList.setAttribute("wide", "");
+	}; */
 
 	window.onscroll = () => {
 		onScroll();

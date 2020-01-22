@@ -94,6 +94,10 @@ const EventHandler = () => {
 		const filterFonts = fonts.state.stock.items.filter(font =>
 			font.family.toLowerCase().includes(e.target.value.toLowerCase())
 		);
+		console.log(filterFonts);
+		for (let filterFont of filterFonts) {
+			fonts.handleFontsLoad(filterFont);
+		}
 
 		let search = true;
 		fonts.createFontContainer(filterFonts, search);

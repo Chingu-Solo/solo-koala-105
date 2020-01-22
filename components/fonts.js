@@ -32,21 +32,37 @@ class Fonts {
 		console.log("apicalls");
 	};
 
-	handleFontsLoad = () => {
-		let { fontsList, fontsListIndex, incrementor, stock } = this.state;
+	handleFontsLoad = newFontsResearch => {
+		if (newFontsResearch) {
+			let { fontsList, fontsListIndex, incrementor, stock } = this.state;
 
-		for (let i = fontsListIndex; i < fontsListIndex + incrementor; i++) {
-			fontsList.push(stock.items[i]);
-			this.createFontContainer(stock.items[i]);
-			this.handleUrlFonts(stock.items[i]);
+			fontsList.push(newFontsResearch);
+			this.createFontContainer(newFontsResearch);
+			this.handleUrlFonts(newFontsResearch);
+
+			this.state.fontsListIndex += incrementor;
+			this.createURL();
+		} else {
+			let { fontsList, fontsListIndex, incrementor, stock } = this.state;
+
+			for (let i = fontsListIndex; i < fontsListIndex + incrementor; i++) {
+				/* console.log(stock.items[i]); */
+				fontsList.push(stock.items[i]);
+				this.createFontContainer(stock.items[i]);
+				this.handleUrlFonts(stock.items[i]);
+			}
+			/* console.log(fontsList, stock); */
+
+			this.state.fontsListIndex += incrementor;
+			this.createURL();
 		}
-		this.state.fontsListIndex += incrementor;
-		this.createURL();
 
 		/* return fontsList; */
 	};
 
 	createFontContainer = (font, search) => {
+		/* console.log(font); */
+
 		let gridList = document.querySelector(".grid-list");
 		if (search) {
 			gridList.innerHTML = "";
@@ -57,6 +73,8 @@ class Fonts {
 				gridList.appendChild(templateFont);
 			}
 		} else {
+			console.log(font);
+
 			const templateFont = Template(font, this.state.toggleWide);
 
 			/* this.state.templateFonts.push(templateFont); */
@@ -71,6 +89,8 @@ class Fonts {
 	};
 
 	createURL = () => {
+		/* console.log(this.state.apiURL); */
+
 		this.state.finalURL = [];
 		this.state.apiURL.map((name, index, arr) => {
 			index === 0 || index === 1

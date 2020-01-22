@@ -9,7 +9,7 @@ class Fonts {
 			/* templateFonts: [], */
 			stock: [],
 			fontsListIndex: 0,
-			incrementor: 10,
+			incrementor: 20,
 			apiURL: ["https://fonts.googleapis.com/css?family="],
 			finalURL: [],
 			toggleWide: false

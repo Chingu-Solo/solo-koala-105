@@ -35,6 +35,7 @@ const EventHandler = () => {
 	});
 
 	inputFontTyped.addEventListener("input", e => {
+		spanEditable = document.querySelectorAll(".spanEditable");
 		for (let i = 0; i < spanEditable.length; i++) {
 			if (e.target.value.length === 0) {
 				for (let i = 0; i < spanEditable.length; i++) {
@@ -47,8 +48,8 @@ const EventHandler = () => {
 	});
 
 	toggleViewBtn.addEventListener("click", () => {
-		console.log(fontInfoContainer);
-
+		/* console.log(fontInfoContainer); */
+		fontInfoContainer = document.querySelectorAll(".font-info");
 		fontInfoContainer.forEach(fontInfo => {
 			if (fontInfo.hasAttribute("wide")) fontInfo.removeAttribute("wide");
 			else fontInfo.setAttribute("wide", "");
@@ -90,7 +91,7 @@ const EventHandler = () => {
 	searchFont[0].addEventListener("input", e => {
 		// const filterFonts = fonts.state.stock.items.filter
 		// or const filterFonts = fonts.state.fontsList.filter...
-		const filterFonts = fonts.state.fontsList.filter(font =>
+		const filterFonts = fonts.state.stock.items.filter(font =>
 			font.family.toLowerCase().includes(e.target.value.toLowerCase())
 		);
 

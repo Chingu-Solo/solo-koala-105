@@ -19,6 +19,7 @@ const EventHandler = () => {
 
 	refreshBtn.addEventListener("click", () => {
 		fonts.refresh();
+		fonts.state.fontsListIndexOnScroll = 5;
 	});
 
 	changeFontSize.addEventListener("click", () => {
@@ -139,6 +140,7 @@ const EventHandler = () => {
 				let search = true;
 				fonts.createFontContainer(filterFonts, search);
 			}
+			fonts.state.fontsListIndexOnScroll = 5;
 		}
 
 		// Debounces makeAPICall method

@@ -4,22 +4,20 @@ import { config } from "../config.js";
 
 class Fonts {
 	constructor() {
-		this.state = {
-			fontsList: [],
+		(this.fontsList = []),
 			/* templateFonts: [], */
-			stock: [],
-			fontsListIndex: 0,
-			fontsListIndexOnScroll: 5,
-			incrementor: 5,
-			apiURL: ["https://fonts.googleapis.com/css?family="],
-			finalURL: [],
-			toggleWide: false
-		};
+			(this.stock = []),
+			(this.fontsListIndex = 0),
+			(this.fontsListIndexOnScroll = 5),
+			(this.incrementor = 5),
+			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
+			(this.finalURL = []),
+			(this.toggleWide = false);
 	}
 
 	getGFonts = async () => {
-		/* this.state.fontsList = [];
-		this.state.fontsListIndex = 0;
+		/* this.fontsList = [];
+		this.fontsListIndex = 0;
 		let gridList = document.querySelector(".grid-list");
 		gridList.innerHTML = ""; */
 		const jsonFonts = await fetch(
@@ -27,7 +25,7 @@ class Fonts {
 		);
 		try {
 			const gFonts = await jsonFonts.json();
-			this.state.stock = gFonts;
+			this.stock = gFonts;
 			await this.handleFontsLoad();
 		} catch (error) {
 			console.log(error);
@@ -40,44 +38,44 @@ class Fonts {
 	handleFontsLoad = newFontsResearch => {
 		if (newFontsResearch === "scroll") {
 			for (
-				let i = this.state.fontsListIndexOnScroll;
-				i < this.state.fontsListIndexOnScroll + this.state.incrementor;
+				let i = this.fontsListIndexOnScroll;
+				i < this.fontsListIndexOnScroll + this.incrementor;
 				i++
 			) {
 				/* console.log(stock.items[i]); */
-				this.state.fontsList.push(this.state.stock.items[i]);
-				this.createFontContainer(this.state.stock.items[i]);
-				this.handleUrlFonts(this.state.stock.items[i]);
+				this.fontsList.push(this.stock.items[i]);
+				this.createFontContainer(this.stock.items[i]);
+				this.handleUrlFonts(this.stock.items[i]);
 			}
 			/* console.log(fontsList, stock); */
 
-			this.state.fontsListIndexOnScroll += this.state.incrementor;
+			this.fontsListIndexOnScroll += this.incrementor;
 			this.createURL();
 		} else if (newFontsResearch) {
-			let { fontsList, fontsListIndex, incrementor, stock } = this.state;
+			let { fontsList, fontsListIndex, incrementor, stock } = this;
 
 			fontsList.push(newFontsResearch);
 			this.createFontContainer(newFontsResearch);
 			this.handleUrlFonts(newFontsResearch);
 
-			this.state.fontsListIndex += incrementor;
+			this.fontsListIndex += incrementor;
 			this.createURL();
 		} else {
-			/* let { fontsList, fontsListIndex, incrementor, stock } = this.state; */
+			/* let { fontsList, fontsListIndex, incrementor, stock } = this; */
 
 			for (
-				let i = this.state.fontsListIndex;
-				i < this.state.fontsListIndex + this.state.incrementor;
+				let i = this.fontsListIndex;
+				i < this.fontsListIndex + this.incrementor;
 				i++
 			) {
 				/* console.log(stock.items[i]); */
-				this.state.fontsList.push(this.state.stock.items[i]);
-				this.createFontContainer(this.state.stock.items[i]);
-				this.handleUrlFonts(this.state.stock.items[i]);
+				this.fontsList.push(this.stock.items[i]);
+				this.createFontContainer(this.stock.items[i]);
+				this.handleUrlFonts(this.stock.items[i]);
 			}
 			/* console.log(fontsList, stock); */
 
-			this.state.fontsListIndex += this.state.incrementor;
+			this.fontsListIndex += this.incrementor;
 			this.createURL();
 		}
 
@@ -85,11 +83,11 @@ class Fonts {
 	};
 
 	refresh() {
-		this.state.fontsList = [];
-		this.state.fontsListIndex = 0;
+		this.fontsList = [];
+		this.fontsListIndex = 0;
 		let gridList = document.querySelector(".grid-list");
 		gridList.innerHTML = "";
-		let { fontsList, fontsListIndex, incrementor, stock } = this.state;
+		let { fontsList, fontsListIndex, incrementor, stock } = this;
 		fontsListIndex = 0;
 		for (let i = fontsListIndex; i < fontsListIndex + incrementor; i++) {
 			/* console.log(stock.items[i]); */
@@ -111,16 +109,16 @@ class Fonts {
 			gridList.innerHTML = "";
 
 			for (let f of font) {
-				const templateFont = Template(f, this.state.toggleWide);
+				const templateFont = Template(f, this.toggleWide);
 
 				gridList.appendChild(templateFont);
 			}
 		} else {
 			/* console.log(font); */
 
-			const templateFont = Template(font, this.state.toggleWide);
+			const templateFont = Template(font, this.toggleWide);
 
-			/* this.state.templateFonts.push(templateFont); */
+			/* this.templateFonts.push(templateFont); */
 			gridList.appendChild(templateFont);
 		}
 	};
@@ -128,22 +126,22 @@ class Fonts {
 	handleUrlFonts = fontsList => {
 		let regexSpace = / /g;
 		let formattedFont = fontsList.family.replace(regexSpace, "+");
-		this.state.apiURL.push(formattedFont);
+		this.apiURL.push(formattedFont);
 	};
 
 	createURL = () => {
-		/* console.log(this.state.apiURL); */
+		/* console.log(this.apiURL); */
 
-		this.state.finalURL = [];
-		this.state.apiURL.map((name, index, arr) => {
+		this.finalURL = [];
+		this.apiURL.map((name, index, arr) => {
 			index === 0 || index === 1
-				? this.state.finalURL.push(name)
+				? this.finalURL.push(name)
 				: index === arr.length - 1
-				? this.state.finalURL.push(`|${name}&display=swap`)
-				: this.state.finalURL.push(`|${name}`);
+				? this.finalURL.push(`|${name}&display=swap`)
+				: this.finalURL.push(`|${name}`);
 		});
 
-		let finalURL = this.state.finalURL.join("");
+		let finalURL = this.finalURL.join("");
 		let linkUrl = document.createElement("link");
 		linkUrl.setAttribute("href", `${finalURL}`);
 		linkUrl.setAttribute("rel", "stylesheet");

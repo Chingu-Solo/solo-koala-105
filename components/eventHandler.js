@@ -133,7 +133,7 @@ const EventHandler = () => {
 				const filterFonts = fonts.stock.items.filter((
 					font // or fonts.stock.items.filter
 				) => font.family.toLowerCase().includes(e.target.value.toLowerCase()));
-				/* console.log(filterFonts); */
+				console.log(filterFonts);
 				for (let filterFont of filterFonts) {
 					fonts.handleFontsLoad(filterFont);
 				}

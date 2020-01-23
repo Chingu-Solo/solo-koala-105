@@ -2,7 +2,7 @@ import fonts from "./fonts.js";
 import Template from "./template.js";
 
 const EventHandler = () => {
-	console.log("launch");
+	/* console.log("launch"); */
 
 	const togglethemeBtn = document.querySelector(".toggle-theme__btn");
 	let toggleColor = false;
@@ -18,7 +18,7 @@ const EventHandler = () => {
 	const refreshBtn = document.querySelector(".refresh__btn");
 
 	refreshBtn.addEventListener("click", () => {
-		fonts.getGFonts();
+		fonts.refresh();
 	});
 
 	changeFontSize.addEventListener("click", () => {
@@ -99,7 +99,7 @@ const EventHandler = () => {
 		}
 	};
 
-	searchFont[0].addEventListener("input", e => {
+	/* searchFont[0].addEventListener("input", e => {
 		// const filterFonts = fonts.state.stock.items.filter
 		// or const filterFonts = fonts.state.fontsList.filter...
 		const filterFonts = fonts.state.stock.items.filter(font =>
@@ -112,14 +112,46 @@ const EventHandler = () => {
 
 		let search = true;
 		fonts.createFontContainer(filterFonts, search);
+	}); */
+	let timerId;
+	searchFont[0].addEventListener("input", e => {
+		var debounceFunction = function(func, delay) {
+			// Cancels the setTimeout method execution
+			clearTimeout(timerId);
+
+			// Executes the func after delay time.
+			timerId = setTimeout(func, delay);
+		};
+
+		function makeAPICall() {
+			if (e.target.value.length === 0) fonts.refresh();
+			else {
+				/* console.log("apicall"); */
+				/* console.log(e.target.value) */
+				const filterFonts = fonts.state.stock.items.filter((
+					font // or fonts.state.stock.items.filter
+				) => font.family.toLowerCase().includes(e.target.value.toLowerCase()));
+				/* console.log(filterFonts); */
+				for (let filterFont of filterFonts) {
+					fonts.handleFontsLoad(filterFont);
+				}
+
+				let search = true;
+				fonts.createFontContainer(filterFonts, search);
+			}
+		}
+
+		// Debounces makeAPICall method
+		debounceFunction(makeAPICall, 2000);
 	});
 
 	// * Load fonts an scroll
 	document.addEventListener("scroll", () => {
 		let endPointScroll =
 			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
+		if (endPointScroll === 0) return;
 		if (endPointScroll < 200) {
-			fonts.handleFontsLoad();
+			fonts.handleFontsLoad("scroll");
 			fontInfoContainer = document.querySelectorAll(".font-info");
 			spanEditable = document.querySelectorAll(".spanEditable");
 		}

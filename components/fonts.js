@@ -11,6 +11,7 @@ class Fonts {
 			(this.incrementor = 15),
 			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
 			(this.research = false),
+			(this.gridList = document.querySelector(".grid-list")),
 			(this.finalURL = []);
 	}
 
@@ -30,16 +31,6 @@ class Fonts {
 
 	handleFontsLoad = newFontsResearch => {
 		if (newFontsResearch === "scroll") {
-			/* for (
-				let i = this.fontsListIndexOnScroll;
-				i < this.fontsListIndexOnScroll + this.incrementor;
-				i++
-			) {
-				this.handleContainerAndURL(this.stock.items[i]);
-			} */
-			/* this.loopOverFontList(this.fontsListIndexOnScroll, this.incrementor);
-			this.fontsListIndexOnScroll += this.incrementor;
-			this.createURL(); */
 			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor);
 		} else if (newFontsResearch) {
 			this.research = true;
@@ -47,16 +38,6 @@ class Fonts {
 			this.fontsListIndex += this.incrementor;
 			this.createURL();
 		} else {
-			/* for (
-				let i = this.fontsListIndex;
-				i < this.fontsListIndex + this.incrementor;
-				i++
-			) {
-				this.handleContainerAndURL(this.stock.items[i]);
-			} */
-			/* this.loopOverFontList(this.fontsListIndex, this.incrementor);
-			this.fontsListIndex += this.incrementor;
-			this.createURL(); */
 			this.setUpFonts(this.fontsListIndex, this.incrementor);
 		}
 	};
@@ -82,8 +63,7 @@ class Fonts {
 	refresh() {
 		this.fontsList = [];
 		this.fontsListIndex = 0;
-		let gridList = document.querySelector(".grid-list");
-		gridList.innerHTML = "";
+		this.gridList.innerHTML = "";
 		this.fontsListIndex = 0;
 		for (
 			let i = this.fontsListIndex;
@@ -98,19 +78,15 @@ class Fonts {
 	}
 
 	createFontContainer = (font, search) => {
-		let gridList = document.querySelector(".grid-list");
 		if (search) {
-			gridList.innerHTML = "";
-
+			this.gridList.innerHTML = "";
 			for (let f of font) {
 				const templateFont = Template(f);
-
-				gridList.appendChild(templateFont);
+				this.gridList.appendChild(templateFont);
 			}
 		} else {
 			const templateFont = Template(font);
-
-			gridList.appendChild(templateFont);
+			this.gridList.appendChild(templateFont);
 		}
 	};
 

@@ -15,6 +15,7 @@ const EventHandler = () => {
 	const changeFontSize = document.querySelector(".down-arrow");
 	const refreshBtn = document.querySelector(".refresh__btn");
 
+	// * refresh page with refresh button as if it was reloaded
 	refreshBtn.addEventListener("click", () => {
 		fonts.refresh();
 		fonts.fontsListIndexOnScroll = 5;

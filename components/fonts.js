@@ -30,32 +30,46 @@ class Fonts {
 
 	handleFontsLoad = newFontsResearch => {
 		if (newFontsResearch === "scroll") {
-			for (
+			/* for (
 				let i = this.fontsListIndexOnScroll;
 				i < this.fontsListIndexOnScroll + this.incrementor;
 				i++
 			) {
 				this.handleContainerAndURL(this.stock.items[i]);
-			}
-
+			} */
+			/* this.loopOverFontList(this.fontsListIndexOnScroll, this.incrementor);
 			this.fontsListIndexOnScroll += this.incrementor;
-			this.createURL();
+			this.createURL(); */
+			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor);
 		} else if (newFontsResearch) {
 			this.research = true;
 			this.handleContainerAndURL(newFontsResearch);
-
 			this.fontsListIndex += this.incrementor;
 			this.createURL();
 		} else {
-			for (
+			/* for (
 				let i = this.fontsListIndex;
 				i < this.fontsListIndex + this.incrementor;
 				i++
 			) {
 				this.handleContainerAndURL(this.stock.items[i]);
-			}
+			} */
+			/* this.loopOverFontList(this.fontsListIndex, this.incrementor);
 			this.fontsListIndex += this.incrementor;
-			this.createURL();
+			this.createURL(); */
+			this.setUpFonts(this.fontsListIndex, this.incrementor);
+		}
+	};
+
+	setUpFonts = (fontListIndex, incrementor) => {
+		this.loopOverFontList(fontListIndex, incrementor);
+		fontListIndex += incrementor;
+		this.createURL();
+	};
+
+	loopOverFontList = (fontListIndex, incrementor) => {
+		for (let i = fontListIndex; i < fontListIndex + incrementor; i++) {
+			this.handleContainerAndURL(this.stock.items[i]);
 		}
 	};
 

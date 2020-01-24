@@ -47,6 +47,7 @@ const EventHandler = () => {
 	refreshBtn.addEventListener("click", () => {
 		if (document.body.hasAttribute("black"))
 			document.body.removeAttribute("black");
+		if (gridList.hasAttribute("wide")) gridList.removeAttribute("wide");
 		fonts.refresh();
 		changeFontSizeBtn.textContent = "40px";
 		initFontSize();

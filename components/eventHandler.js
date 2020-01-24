@@ -54,6 +54,7 @@ const EventHandler = () => {
 		fonts.fontsListIndexOnScroll = 5;
 		searchFont.value = "";
 		inputFontTyped.value = "";
+		fonts.research = false;
 	});
 
 	changeFontSize.addEventListener("click", () => {
@@ -135,6 +136,7 @@ const EventHandler = () => {
 				refreshDOM();
 				initFontSize();
 				fonts.research = false;
+				console.log(fonts.research);
 			} else {
 				const filterFonts = fonts.stock.items.filter((
 					font // or fonts.stock.items.filter

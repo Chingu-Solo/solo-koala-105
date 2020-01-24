@@ -35,18 +35,15 @@ class Fonts {
 				i < this.fontsListIndexOnScroll + this.incrementor;
 				i++
 			) {
-				this.fontsList.push(this.stock.items[i]);
-				this.createFontContainer(this.stock.items[i]);
-				this.handleUrlFonts(this.stock.items[i]);
+				this.handleContainerAndURL(this.stock.items[i]);
 			}
 
 			this.fontsListIndexOnScroll += this.incrementor;
 			this.createURL();
 		} else if (newFontsResearch) {
 			this.research = true;
-			this.fontsList.push(newFontsResearch);
-			this.createFontContainer(newFontsResearch);
-			this.handleUrlFonts(newFontsResearch);
+			this.handleContainerAndURL(newFontsResearch);
+
 			this.fontsListIndex += this.incrementor;
 			this.createURL();
 		} else {
@@ -55,13 +52,17 @@ class Fonts {
 				i < this.fontsListIndex + this.incrementor;
 				i++
 			) {
-				this.fontsList.push(this.stock.items[i]);
-				this.createFontContainer(this.stock.items[i]);
-				this.handleUrlFonts(this.stock.items[i]);
+				this.handleContainerAndURL(this.stock.items[i]);
 			}
 			this.fontsListIndex += this.incrementor;
 			this.createURL();
 		}
+	};
+
+	handleContainerAndURL = fontItem => {
+		this.fontsList.push(fontItem);
+		this.createFontContainer(fontItem);
+		this.handleUrlFonts(fontItem);
 	};
 
 	refresh() {

@@ -86,6 +86,10 @@ body[black] .show-size {
 	background-color: #222222;
 	color: rgb(238, 238, 238);
 }
+body[black] .font-size-option {
+	/* background-color: #222222; */
+	color: rgb(238, 238, 238);
+}
 
 /********** HEADER **********/
 
@@ -218,6 +222,16 @@ main {
 	/* padding: 10px; */
 }
 
+/* .show-size {
+	padding: 20px;
+} */
+
+.font-size-option {
+	display: block;
+	padding: 5px;
+	/* padding: 5px; */
+}
+
 .down-arrow {
 	z-index: 10;
 }
@@ -225,8 +239,6 @@ main {
 .show-size {
 	display: none;
 	position: absolute;
-	/* width: 130px;
-	height: 130px; */
 	height: 100px;
 	background-color: white;
 	top: 40px;
@@ -237,6 +249,8 @@ main {
 		0 1px 10px 0 rgba(0, 0, 0, 0.12);
 	z-index: 10;
 	border-radius: 10px;
+	padding: 0 20px 20px 0;
+	overflow: scroll;
 }
 .show-size ul {
 	padding: 0 20px;
@@ -282,11 +296,14 @@ main {
 	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
-.font-info[wide] {
+/* ! check this: is it useless? */
+/* .font-info[wide] {
 	min-width: 100%;
-	/* max-width: 25rem; */
 	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
+} */
+.grid-list[wide] span {
+	max-width: 100%;
 }
 
 .font-info h1,
@@ -308,6 +325,7 @@ main {
 	overflow-wrap: break-word;
 	display: inline-block;
 	padding-top: 30px;
+	max-width: 25rem;
 }
 
 .font-overview {

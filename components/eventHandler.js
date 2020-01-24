@@ -13,17 +13,40 @@ const EventHandler = () => {
 	const head = document.getElementsByTagName("head")[0];
 	const link = document.createElement("link");
 	const changeFontSize = document.querySelector(".change-font-size");
+	const changeFontSizeBtn = document.querySelector(".change-font-size__btn");
 	/* const changeFontSize = document.querySelector(".down-arrow"); */
 	const refreshBtn = document.querySelector(".refresh__btn");
-	/* let fontSizeOption = document.querySelectorAll(".font-size-option");
+	let fontsSizeOptions = document.querySelectorAll(".font-size-option");
+	let gridList = document.querySelector(".grid-list");
 
-	fontSizeOption.addEventListener("click", e => {
-		console.log("change");
-	}); */
+	const refreshDOM = () => {
+		fontInfoContainer = document.querySelectorAll(".font-info");
+		spanEditable = document.querySelectorAll(".spanEditable");
+	};
+
+	for (let fontSizeOption of fontsSizeOptions) {
+		fontSizeOption.addEventListener("click", e => {
+			changeFontSizeBtn.textContent = `${e.target.textContent}px`;
+			for (let s of spanEditable) {
+				s.style.fontSize = `${e.target.textContent}px`;
+			}
+		});
+	}
+
+	changeFontSizeBtn.textContent = "40px";
+	const initFontSize = () => {
+		refreshDOM();
+
+		for (let s of spanEditable) {
+			s.style.fontSize = `${changeFontSizeBtn.textContent}`;
+		}
+	};
+	initFontSize();
 
 	// * refresh page with refresh button as if it was reloaded
 	refreshBtn.addEventListener("click", () => {
 		fonts.refresh();
+		changeFontSizeBtn.textContent = "40px";
 		fonts.fontsListIndexOnScroll = 5;
 		searchFont.value = "";
 		inputFontTyped.value = "";
@@ -49,8 +72,6 @@ const EventHandler = () => {
 		spanEditable = document.querySelectorAll(".spanEditable");
 		for (let i = 0; i < spanEditable.length; i++) {
 			if (e.target.value.length === 0) {
-				console.log("empty");
-
 				spanEditable[i].textContent = "Try my font by writing something";
 			} else {
 				spanEditable[i].textContent = e.target.value;
@@ -59,7 +80,6 @@ const EventHandler = () => {
 	});
 
 	toggleViewBtn.addEventListener("click", () => {
-		let gridList = document.querySelector(".grid-list");
 		gridList.hasAttribute("wide")
 			? gridList.removeAttribute("wide")
 			: gridList.setAttribute("wide", "");
@@ -106,18 +126,21 @@ const EventHandler = () => {
 		};
 
 		function makeAPICall() {
-			if (e.target.value.length === 0) fonts.refresh();
-			else {
+			if (e.target.value.length === 0) {
+				fonts.refresh();
+				refreshDOM();
+				initFontSize();
+			} else {
 				const filterFonts = fonts.stock.items.filter((
 					font // or fonts.stock.items.filter
 				) => font.family.toLowerCase().includes(e.target.value.toLowerCase()));
-				console.log(filterFonts);
 				for (let filterFont of filterFonts) {
 					fonts.handleFontsLoad(filterFont);
 				}
 
 				let search = true;
 				fonts.createFontContainer(filterFonts, search);
+				initFontSize();
 			}
 			fonts.fontsListIndexOnScroll = 5;
 		}
@@ -133,8 +156,8 @@ const EventHandler = () => {
 		if (endPointScroll === 0) return;
 		if (endPointScroll < 200) {
 			fonts.handleFontsLoad("scroll");
-			fontInfoContainer = document.querySelectorAll(".font-info");
-			spanEditable = document.querySelectorAll(".spanEditable");
+			refreshDOM();
+			initFontSize();
 		}
 	});
 };

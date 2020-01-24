@@ -157,13 +157,19 @@ const EventHandler = () => {
 	// * Load fonts an scroll
 	document.addEventListener("scroll", e => {
 		if (fonts.research === true) return;
+
 		let endPointScroll =
 			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
 		if (endPointScroll === 0) return;
 		if (endPointScroll < 200) {
-			fonts.handleFontsLoad("scroll", e);
+			fonts.handleFontsLoad("scroll");
 			refreshDOM();
 			initFontSize();
+			if (inputFontTyped.value.length > 0) {
+				for (let s of spanEditable) {
+					s.textContent = inputFontTyped.value;
+				}
+			}
 		}
 	});
 };

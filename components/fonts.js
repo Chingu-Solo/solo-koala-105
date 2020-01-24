@@ -10,8 +10,7 @@ class Fonts {
 			(this.fontsListIndexOnScroll = 5),
 			(this.incrementor = 5),
 			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
-			(this.finalURL = []),
-			(this.toggleWide = false);
+			(this.finalURL = []);
 	}
 
 	getGFonts = async () => {
@@ -87,12 +86,12 @@ class Fonts {
 			gridList.innerHTML = "";
 
 			for (let f of font) {
-				const templateFont = Template(f, this.toggleWide);
+				const templateFont = Template(f);
 
 				gridList.appendChild(templateFont);
 			}
 		} else {
-			const templateFont = Template(font, this.toggleWide);
+			const templateFont = Template(font);
 
 			gridList.appendChild(templateFont);
 		}

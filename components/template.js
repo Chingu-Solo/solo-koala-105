@@ -1,4 +1,4 @@
-const HTMLTemplate = (fonts, toggleWide) => {
+const HTMLTemplate = fonts => {
 	let fontInfoContainer = document.createElement("div");
 	let flexContainer = document.createElement("div");
 	let fontName = document.createElement("h1");
@@ -7,13 +7,6 @@ const HTMLTemplate = (fonts, toggleWide) => {
 	let spanEditable = document.createElement("span");
 
 	fontInfoContainer.classList.add("font-info");
-	/* console.log(toggleWide ? "true" : "false");
-	console.log(fontInfoContainer); */
-
-	/* toggleWide
-		? fontInfoContainer.setAttribute("wide", "")
-		: fontInfoContainer.removeAttribute("wide");
-	console.log(fontInfoContainer); */
 
 	flexContainer.classList.add("flex");
 	addIcon.classList.add("material-icons");

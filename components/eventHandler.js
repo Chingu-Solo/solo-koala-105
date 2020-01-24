@@ -45,6 +45,8 @@ const EventHandler = () => {
 
 	// * refresh page with refresh button as if it was reloaded
 	refreshBtn.addEventListener("click", () => {
+		if (document.body.hasAttribute("black"))
+			document.body.removeAttribute("black");
 		fonts.refresh();
 		changeFontSizeBtn.textContent = "40px";
 		fonts.fontsListIndexOnScroll = 5;

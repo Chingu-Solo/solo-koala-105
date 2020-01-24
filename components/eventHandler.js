@@ -49,6 +49,7 @@ const EventHandler = () => {
 			document.body.removeAttribute("black");
 		fonts.refresh();
 		changeFontSizeBtn.textContent = "40px";
+		initFontSize();
 		fonts.fontsListIndexOnScroll = 5;
 		searchFont.value = "";
 		inputFontTyped.value = "";
@@ -132,6 +133,7 @@ const EventHandler = () => {
 				fonts.refresh();
 				refreshDOM();
 				initFontSize();
+				fonts.research = false;
 			} else {
 				const filterFonts = fonts.stock.items.filter((
 					font // or fonts.stock.items.filter
@@ -152,12 +154,13 @@ const EventHandler = () => {
 	});
 
 	// * Load fonts an scroll
-	document.addEventListener("scroll", () => {
+	document.addEventListener("scroll", e => {
+		if (fonts.research === true) return;
 		let endPointScroll =
 			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
 		if (endPointScroll === 0) return;
 		if (endPointScroll < 200) {
-			fonts.handleFontsLoad("scroll");
+			fonts.handleFontsLoad("scroll", e);
 			refreshDOM();
 			initFontSize();
 		}

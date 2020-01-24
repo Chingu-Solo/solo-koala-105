@@ -361,7 +361,7 @@ main {
 
 /********** Media queries **********/
 
-@media screen and (max-width: 911px) {
+@media screen and (max-width: 1440px) {
 	main {
 		margin: 0 5rem;
 	}

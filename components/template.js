@@ -1,3 +1,6 @@
+import quotes from "./quotes.js";
+console.log(quotes.length);
+
 const HTMLTemplate = fonts => {
 	let fontInfoContainer = document.createElement("div");
 	let flexContainer = document.createElement("div");
@@ -5,6 +8,8 @@ const HTMLTemplate = fonts => {
 	let categoryName = document.createElement("h2");
 	let addIcon = document.createElement("i");
 	let spanEditable = document.createElement("span");
+	let randomNb = Math.floor(Math.random() * quotes.length);
+	let randomQuote = quotes[randomNb];
 
 	fontInfoContainer.classList.add("font-info");
 
@@ -13,7 +18,7 @@ const HTMLTemplate = fonts => {
 	addIcon.textContent = "add_circle_outline";
 	spanEditable.classList.add("spanEditable");
 	spanEditable.setAttribute("contenteditable", "true");
-	spanEditable.textContent = `I'm the ${fonts.family} font style! Do you like it?`;
+	spanEditable.textContent = `${randomQuote}`;
 	spanEditable.style.fontFamily = fonts.family;
 	fontName.textContent = fonts.family;
 	fontName.style.fontFamily = fonts.family;

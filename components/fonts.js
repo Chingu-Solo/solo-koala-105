@@ -8,8 +8,9 @@ class Fonts {
 			(this.stock = []),
 			(this.fontsListIndex = 0),
 			(this.fontsListIndexOnScroll = 5),
-			(this.incrementor = 5),
+			(this.incrementor = 15),
 			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
+			(this.research = false),
 			(this.finalURL = []);
 	}
 
@@ -42,6 +43,7 @@ class Fonts {
 			this.fontsListIndexOnScroll += this.incrementor;
 			this.createURL();
 		} else if (newFontsResearch) {
+			this.research = true;
 			this.fontsList.push(newFontsResearch);
 			this.createFontContainer(newFontsResearch);
 			this.handleUrlFonts(newFontsResearch);

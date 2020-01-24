@@ -82,6 +82,11 @@ body[black] .font-info {
 	border-color: rgb(238, 238, 238);
 }
 
+body[black] .show-size {
+	background-color: #222222;
+	color: rgb(238, 238, 238);
+}
+
 /********** HEADER **********/
 
 header {
@@ -220,12 +225,26 @@ main {
 .show-size {
 	display: none;
 	position: absolute;
-	width: 130px;
-	height: 130px;
-	background-color: red;
-	top: 0;
+	/* width: 130px;
+	height: 130px; */
+	height: 100px;
+	background-color: white;
+	top: 40px;
 	left: 0;
 	z-index: 0;
+	overflow: scroll;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+		0 1px 10px 0 rgba(0, 0, 0, 0.12);
+	z-index: 10;
+	border-radius: 10px;
+}
+.show-size ul {
+	padding: 0 20px;
+}
+.show-size ul > li {
+	list-style: none;
+	padding: 5px 0;
+	cursor: pointer;
 }
 /* .change-font-size__btn::after {
 	color: #ff5252;

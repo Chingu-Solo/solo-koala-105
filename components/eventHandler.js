@@ -12,8 +12,14 @@ const EventHandler = () => {
 	const goToTop = document.getElementById("go-to-top");
 	const head = document.getElementsByTagName("head")[0];
 	const link = document.createElement("link");
-	const changeFontSize = document.querySelector(".down-arrow");
+	const changeFontSize = document.querySelector(".change-font-size");
+	/* const changeFontSize = document.querySelector(".down-arrow"); */
 	const refreshBtn = document.querySelector(".refresh__btn");
+	/* let fontSizeOption = document.querySelectorAll(".font-size-option");
+
+	fontSizeOption.addEventListener("click", e => {
+		console.log("change");
+	}); */
 
 	// * refresh page with refresh button as if it was reloaded
 	refreshBtn.addEventListener("click", () => {

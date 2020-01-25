@@ -7,7 +7,7 @@ class Fonts {
 		(this.fontsList = []),
 			(this.stock = []),
 			(this.fontsListIndex = 0),
-			(this.fontsListIndexOnScroll = 5),
+			(this.fontsListIndexOnScroll = 0),
 			(this.incrementor = 15),
 			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
 			(this.research = false),
@@ -33,7 +33,7 @@ class Fonts {
 		await EventHandler();
 	};
 
-	storeFont = font => {
+	/* storeFont = font => {
 		console.log("store");
 
 		if (localStorage.getItem("fonts")) {
@@ -58,12 +58,11 @@ class Fonts {
 			}
 			console.log(this.fontsList);
 		}
-	};
+	}; */
 
 	handleFontsLoad = newFontsResearch => {
 		if (newFontsResearch === "scroll") {
 			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor, true);
-			this.fontsListIndexOnScroll += this.incrementor;
 		} else if (newFontsResearch) {
 			this.research = true;
 			this.handleContainerAndURL(newFontsResearch);
@@ -82,7 +81,7 @@ class Fonts {
 		bool
 			? this.loopOverFontList(fontListIndex, incrementor)
 			: (fontListIndex += incrementor);
-		/* this.fontsListIndexOnScroll += incrementor; */
+		this.fontsListIndexOnScroll += incrementor;
 		this.createURL();
 	};
 
@@ -103,7 +102,7 @@ class Fonts {
 		this.fontsList = [];
 		this.fontsListIndex = 0;
 		this.gridList.innerHTML = "";
-		this.fontsListIndex = 0;
+		this.fontsListIndexOnScroll = 0;
 		for (
 			let i = this.fontsListIndex;
 			i < this.fontsListIndex + this.incrementor;

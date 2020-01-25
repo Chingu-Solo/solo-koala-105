@@ -68,10 +68,14 @@ const EventHandler = () => {
 		if (document.body.hasAttribute("black"))
 			document.body.removeAttribute("black");
 		if (gridList.hasAttribute("wide")) gridList.removeAttribute("wide");
+		/* fonts.fontsList = []; */
 		fonts.refresh();
 		changeFontSizeBtn.textContent = "40px";
 		initFontSize();
-		fonts.fontsListIndexOnScroll = 5;
+		fonts.fontsListIndexOnScroll = 0;
+		/* fonts.fontsListIndexOnScroll = 0; */
+		console.log(fonts.fontsList);
+
 		searchFont.value = "";
 		inputFontTyped.value = "";
 		fonts.research = false;
@@ -203,6 +207,12 @@ const EventHandler = () => {
 		if (endPointScroll === 0) return;
 		if (endPointScroll < 200) {
 			refreshDOM();
+			/* fonts.fontsList = [] */
+			/* console.log(fonts.fontsList.length);
+			if (fonts.fontsList.length === 15) {
+				gridList.innerHTML = "";
+			} */
+
 			fonts.handleFontsLoad("scroll");
 			initFontSize();
 			if (inputFontTyped.value.length > 0) {
@@ -211,6 +221,8 @@ const EventHandler = () => {
 				}
 			}
 			addFontsOnLocalStorage();
+			console.log(fonts.fontsList);
+			console.log(fonts.stock);
 		}
 	});
 };

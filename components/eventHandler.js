@@ -1,5 +1,8 @@
 import fonts from "./fonts.js";
 import Template from "./template.js";
+import quotes from "./quotes.js";
+let randomNb = Math.floor(Math.random() * quotes.length);
+let randomQuote = quotes[randomNb];
 
 const EventHandler = () => {
 	const togglethemeBtn = document.querySelector(".toggle-theme__btn");
@@ -77,7 +80,7 @@ const EventHandler = () => {
 		spanEditable = document.querySelectorAll(".spanEditable");
 		for (let i = 0; i < spanEditable.length; i++) {
 			if (e.target.value.length === 0) {
-				spanEditable[i].textContent = "Try my font by writing something";
+				spanEditable[i].textContent = `${randomQuote}`;
 			} else {
 				spanEditable[i].textContent = e.target.value;
 			}
@@ -137,6 +140,11 @@ const EventHandler = () => {
 				initFontSize();
 				fonts.research = false;
 				console.log(fonts.research);
+				if (inputFontTyped.value.length > 0) {
+					for (let s of spanEditable) {
+						s.textContent = inputFontTyped.value;
+					}
+				}
 			} else {
 				const filterFonts = fonts.stock.items.filter((
 					font // or fonts.stock.items.filter
@@ -148,6 +156,11 @@ const EventHandler = () => {
 				let search = true;
 				fonts.createFontContainer(filterFonts, search);
 				initFontSize();
+				if (inputFontTyped.value.length > 0) {
+					for (let s of spanEditable) {
+						s.textContent = inputFontTyped.value;
+					}
+				}
 			}
 			fonts.fontsListIndexOnScroll = 5;
 		}

@@ -81,7 +81,7 @@ class Fonts {
 		bool
 			? this.loopOverFontList(fontListIndex, incrementor)
 			: (fontListIndex += incrementor);
-		fontListIndex += incrementor;
+		/* fontListIndex += incrementor; */
 		this.createURL();
 	};
 

@@ -32,7 +32,7 @@ const EventHandler = () => {
 	const refreshDOM = () => {
 		fontInfoContainer = document.querySelectorAll(".font-info");
 		spanEditable = document.querySelectorAll(".spanEditable");
-		/* addFonts = document.querySelectorAll(".add-font"); */
+		addFonts = document.querySelectorAll(".add-font");
 	};
 
 	// *-----* Font size handler *-----* //
@@ -206,7 +206,7 @@ const EventHandler = () => {
 					s.textContent = inputFontTyped.value;
 				}
 			}
-			/* addFontsOnLocalStorage(); */
+			addFontsOnLocalStorage();
 		}
 	});
 };

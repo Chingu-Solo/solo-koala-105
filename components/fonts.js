@@ -65,6 +65,7 @@ class Fonts {
 	handleFontsLoad = newFontsResearch => {
 		if (newFontsResearch === "scroll") {
 			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor, true);
+			this.fontsListIndexOnScroll += this.incrementor;
 		} else if (newFontsResearch) {
 			this.research = true;
 			this.handleContainerAndURL(newFontsResearch);
@@ -76,12 +77,10 @@ class Fonts {
 	};
 
 	setUpFonts = (fontListIndex, incrementor, bool) => {
-		console.log(fontListIndex);
 		bool
 			? this.loopOverFontList(fontListIndex, incrementor)
 			: (fontListIndex += incrementor);
-		this.fontsListIndexOnScroll += incrementor;
-		console.log(fontListIndex);
+		/* this.fontsListIndexOnScroll += incrementor; */
 		this.createURL();
 	};
 

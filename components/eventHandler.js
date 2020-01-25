@@ -202,8 +202,8 @@ const EventHandler = () => {
 			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
 		if (endPointScroll === 0) return;
 		if (endPointScroll < 200) {
-			fonts.handleFontsLoad("scroll");
 			refreshDOM();
+			fonts.handleFontsLoad("scroll");
 			initFontSize();
 			if (inputFontTyped.value.length > 0) {
 				for (let s of spanEditable) {

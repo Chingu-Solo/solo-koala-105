@@ -34,6 +34,8 @@ class Fonts {
 	};
 
 	storeFont = font => {
+		console.log("store");
+
 		if (localStorage.getItem("fonts")) {
 			let getFontFromLocalStorage = JSON.parse(localStorage.getItem("fonts"));
 			if (getFontFromLocalStorage.includes(font)) return;
@@ -41,18 +43,17 @@ class Fonts {
 			localStorage.setItem("fonts", JSON.stringify(getFontFromLocalStorage));
 		} else {
 			this.localStorageFont.push(font);
-			/* this.localStorageFont.push(JSON.parse(localStorage.getItem("fonts"))); */
 			localStorage.setItem("fonts", JSON.stringify(this.localStorageFont));
-			/* localStorage.setItem(
-				"fonts",
-				JSON.stringify(this.localStorageFont.push(font))
-			); */
 		}
 	};
 
 	getFontFromLocalStorage = () => {
 		let getFontFromLocalStorage = localStorage.getItem("fonts");
 		console.log(JSON.parse(getFontFromLocalStorage));
+		for (let f of JSON.parse(getFontFromLocalStorage)) {
+			console.log(f);
+			/* console.log(this.fontsList.filter(font => font.family.includes(f))); */
+		}
 
 		/* let localFontStorage = JSON.parse(window.localStorage.getItem("fonts"));
 		if (localFontStorage.length > 0) console.log("sup");
@@ -69,15 +70,18 @@ class Fonts {
 			this.handleContainerAndURL(newFontsResearch);
 			this.setUpFonts(this.fontsListIndex, this.incrementor, false);
 		} else {
-			/* this.getFontFromLocalStorage(); */
+			this.getFontFromLocalStorage();
 			this.setUpFonts(this.fontsListIndex, this.incrementor, true);
 		}
 	};
 
 	setUpFonts = (fontListIndex, incrementor, bool) => {
+		console.log(fontListIndex);
+
 		bool
 			? this.loopOverFontList(fontListIndex, incrementor)
 			: (fontListIndex += incrementor);
+		fontListIndex += incrementor;
 		this.createURL();
 	};
 
@@ -85,6 +89,7 @@ class Fonts {
 		for (let i = fontListIndex; i < fontListIndex + incrementor; i++) {
 			this.handleContainerAndURL(this.stock.items[i]);
 		}
+		/* fontListIndex += incrementor; */
 	};
 
 	handleContainerAndURL = fontItem => {

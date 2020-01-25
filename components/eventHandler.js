@@ -23,15 +23,7 @@ const EventHandler = () => {
 	let fontsSizeOptions = document.querySelectorAll(".font-size-option");
 	const refreshBtn = document.querySelector(".refresh__btn");
 
-	const addFonts = document.querySelectorAll(".add-font");
-	for (let addFont of addFonts) {
-		addFont.addEventListener("click", e => {
-			let retrieveFontFamily = e.target.previousSibling.innerHTML;
-			/* console.log(e.target.previousSibling.innerHTML);
-			console.log(localStorage); */
-			fonts.storeFont(retrieveFontFamily);
-		});
-	}
+	let addFonts = document.querySelectorAll(".add-font");
 
 	/* const head = document.getElementsByTagName("head")[0];
 	const link = document.createElement("link"); */
@@ -40,6 +32,7 @@ const EventHandler = () => {
 	const refreshDOM = () => {
 		fontInfoContainer = document.querySelectorAll(".font-info");
 		spanEditable = document.querySelectorAll(".spanEditable");
+		/* addFonts = document.querySelectorAll(".add-font"); */
 	};
 
 	// *-----* Font size handler *-----* //
@@ -84,6 +77,16 @@ const EventHandler = () => {
 		inputFontTyped.value = "";
 		fonts.research = false;
 	});
+
+	const addFontsOnLocalStorage = () => {
+		for (let addFont of addFonts) {
+			addFont.addEventListener("click", e => {
+				let retrieveFontFamily = e.target.previousSibling.innerHTML;
+				fonts.storeFont(retrieveFontFamily);
+			});
+		}
+	};
+	addFontsOnLocalStorage();
 
 	togglethemeBtn.addEventListener("click", () => {
 		const body = document.body;
@@ -203,6 +206,7 @@ const EventHandler = () => {
 					s.textContent = inputFontTyped.value;
 				}
 			}
+			/* addFontsOnLocalStorage(); */
 		}
 	});
 };

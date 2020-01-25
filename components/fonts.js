@@ -77,11 +77,11 @@ class Fonts {
 
 	setUpFonts = (fontListIndex, incrementor, bool) => {
 		console.log(fontListIndex);
-
 		bool
 			? this.loopOverFontList(fontListIndex, incrementor)
 			: (fontListIndex += incrementor);
-		/* fontListIndex += incrementor; */
+		this.fontsListIndexOnScroll += incrementor;
+		console.log(fontListIndex);
 		this.createURL();
 	};
 

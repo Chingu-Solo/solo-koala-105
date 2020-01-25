@@ -1,7 +1,6 @@
 import fonts from "./fonts.js";
 import quotes from "./quotes.js";
-let randomNb = Math.floor(Math.random() * quotes.length);
-let randomQuote = quotes[randomNb];
+
 /* import Template from "./template.js"; */
 
 const EventHandler = () => {
@@ -48,8 +47,8 @@ const EventHandler = () => {
 	}
 
 	// *  Initialize button text-contentand spanEditable font size
+	changeFontSizeBtn.textContent = "40px";
 	const initFontSize = () => {
-		changeFontSizeBtn.textContent = "40px";
 		refreshDOM();
 		for (let s of spanEditable) {
 			s.style.fontSize = `${changeFontSizeBtn.textContent}`;
@@ -98,11 +97,16 @@ const EventHandler = () => {
 		toggleColor = !toggleColor;
 	});
 
+	const getRandomQuotes = () => {
+		let randomNb = Math.floor(Math.random() * quotes.length);
+		return quotes[randomNb];
+	};
+
 	inputFontTyped.addEventListener("input", e => {
 		spanEditable = document.querySelectorAll(".spanEditable");
 		for (let i = 0; i < spanEditable.length; i++) {
 			if (e.target.value.length === 0) {
-				spanEditable[i].textContent = `${randomQuote}`;
+				spanEditable[i].textContent = `${getRandomQuotes()}`;
 			} else {
 				spanEditable[i].textContent = e.target.value;
 			}

@@ -14,6 +14,7 @@ const HTMLTemplate = fonts => {
 
 	flexContainer.classList.add("flex");
 	addIcon.classList.add("material-icons");
+	addIcon.classList.add("add-font");
 	addIcon.textContent = "add_circle_outline";
 	spanEditable.classList.add("spanEditable");
 	spanEditable.setAttribute("contenteditable", "true");

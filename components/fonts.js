@@ -12,6 +12,10 @@ class Fonts {
 			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
 			(this.research = false),
 			(this.gridList = document.querySelector(".grid-list")),
+			/* (this.localStorageFont = JSON.parse(
+				window.localStorage.getItem("fonts")
+			)), */
+			(this.localStorageFont = []),
 			(this.finalURL = []);
 	}
 
@@ -29,22 +33,51 @@ class Fonts {
 		await EventHandler();
 	};
 
-	handleFontsLoad = newFontsResearch => {
-		if (newFontsResearch === "scroll") {
-			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor);
-		} else if (newFontsResearch) {
-			this.research = true;
-			this.handleContainerAndURL(newFontsResearch);
-			this.fontsListIndex += this.incrementor;
-			this.createURL();
+	storeFont = font => {
+		if (localStorage.getItem("fonts")) {
+			let getFontFromLocalStorage = JSON.parse(localStorage.getItem("fonts"));
+			if (getFontFromLocalStorage.includes(font)) return;
+			getFontFromLocalStorage.push(font);
+			localStorage.setItem("fonts", JSON.stringify(getFontFromLocalStorage));
 		} else {
-			this.setUpFonts(this.fontsListIndex, this.incrementor);
+			this.localStorageFont.push(font);
+			/* this.localStorageFont.push(JSON.parse(localStorage.getItem("fonts"))); */
+			localStorage.setItem("fonts", JSON.stringify(this.localStorageFont));
+			/* localStorage.setItem(
+				"fonts",
+				JSON.stringify(this.localStorageFont.push(font))
+			); */
 		}
 	};
 
-	setUpFonts = (fontListIndex, incrementor) => {
-		this.loopOverFontList(fontListIndex, incrementor);
-		fontListIndex += incrementor;
+	getFontFromLocalStorage = () => {
+		let getFontFromLocalStorage = localStorage.getItem("fonts");
+		console.log(JSON.parse(getFontFromLocalStorage));
+
+		/* let localFontStorage = JSON.parse(window.localStorage.getItem("fonts"));
+		if (localFontStorage.length > 0) console.log("sup");
+
+		console.log(localFontStorage);
+		console.log(localFontStorage); */
+	};
+
+	handleFontsLoad = newFontsResearch => {
+		if (newFontsResearch === "scroll") {
+			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor, true);
+		} else if (newFontsResearch) {
+			this.research = true;
+			this.handleContainerAndURL(newFontsResearch);
+			this.setUpFonts(this.fontsListIndex, this.incrementor, false);
+		} else {
+			/* this.getFontFromLocalStorage(); */
+			this.setUpFonts(this.fontsListIndex, this.incrementor, true);
+		}
+	};
+
+	setUpFonts = (fontListIndex, incrementor, bool) => {
+		bool
+			? this.loopOverFontList(fontListIndex, incrementor)
+			: (fontListIndex += incrementor);
 		this.createURL();
 	};
 

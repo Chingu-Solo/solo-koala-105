@@ -1,32 +1,50 @@
 import fonts from "./fonts.js";
-import Template from "./template.js";
 import quotes from "./quotes.js";
 let randomNb = Math.floor(Math.random() * quotes.length);
 let randomQuote = quotes[randomNb];
+/* import Template from "./template.js"; */
 
 const EventHandler = () => {
+	let gridList = document.querySelector(".grid-list");
+
 	const togglethemeBtn = document.querySelector(".toggle-theme__btn");
 	let toggleColor = false;
+	const toggleViewBtn = document.querySelector(".toggle-view__btn");
+
 	const inputFontTyped = document.querySelector(".type-something__input");
 	let spanEditable = document.querySelectorAll(".spanEditable");
 	const searchFont = document.querySelector(".search-font__input");
-	const toggleViewBtn = document.querySelector(".toggle-view__btn");
+
 	let fontInfoContainer = document.querySelectorAll(".font-info");
 	const goToTop = document.getElementById("go-to-top");
-	const head = document.getElementsByTagName("head")[0];
-	const link = document.createElement("link");
+
 	const changeFontSize = document.querySelector(".change-font-size");
 	const changeFontSizeBtn = document.querySelector(".change-font-size__btn");
-	/* const changeFontSize = document.querySelector(".down-arrow"); */
-	const refreshBtn = document.querySelector(".refresh__btn");
 	let fontsSizeOptions = document.querySelectorAll(".font-size-option");
-	let gridList = document.querySelector(".grid-list");
+	const refreshBtn = document.querySelector(".refresh__btn");
+
+	const addFonts = document.querySelectorAll(".add-font");
+	for (let addFont of addFonts) {
+		addFont.addEventListener("click", e => {
+			let retrieveFontFamily = e.target.previousSibling.innerHTML;
+			/* console.log(e.target.previousSibling.innerHTML);
+			console.log(localStorage); */
+			fonts.storeFont(retrieveFontFamily);
+		});
+	}
+
+	/* const head = document.getElementsByTagName("head")[0];
+	const link = document.createElement("link"); */
+	/* const changeFontSize = document.querySelector(".down-arrow"); */
 
 	const refreshDOM = () => {
 		fontInfoContainer = document.querySelectorAll(".font-info");
 		spanEditable = document.querySelectorAll(".spanEditable");
 	};
 
+	// *-----* Font size handler *-----* //
+
+	// * Loop over font size button to fire a click event listener on each of them and update the font size in each spanEditable
 	for (let fontSizeOption of fontsSizeOptions) {
 		fontSizeOption.addEventListener("click", e => {
 			changeFontSizeBtn.textContent = `${e.target.textContent}px`;
@@ -36,15 +54,22 @@ const EventHandler = () => {
 		});
 	}
 
-	changeFontSizeBtn.textContent = "40px";
+	// *  Initialize button text-contentand spanEditable font size
 	const initFontSize = () => {
+		changeFontSizeBtn.textContent = "40px";
 		refreshDOM();
-
 		for (let s of spanEditable) {
 			s.style.fontSize = `${changeFontSizeBtn.textContent}`;
 		}
 	};
 	initFontSize();
+
+	// * Display the fonts size choice on click event
+	changeFontSize.addEventListener("click", () => {
+		document.querySelector(".show-size").style.display === "block"
+			? (document.querySelector(".show-size").style.display = "none")
+			: (document.querySelector(".show-size").style.display = "block");
+	});
 
 	// * refresh page with refresh button as if it was reloaded
 	refreshBtn.addEventListener("click", () => {
@@ -58,12 +83,6 @@ const EventHandler = () => {
 		searchFont.value = "";
 		inputFontTyped.value = "";
 		fonts.research = false;
-	});
-
-	changeFontSize.addEventListener("click", () => {
-		document.querySelector(".show-size").style.display === "block"
-			? (document.querySelector(".show-size").style.display = "none")
-			: (document.querySelector(".show-size").style.display = "block");
 	});
 
 	togglethemeBtn.addEventListener("click", () => {
@@ -139,7 +158,6 @@ const EventHandler = () => {
 				refreshDOM();
 				initFontSize();
 				fonts.research = false;
-				console.log(fonts.research);
 				if (inputFontTyped.value.length > 0) {
 					for (let s of spanEditable) {
 						s.textContent = inputFontTyped.value;

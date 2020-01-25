@@ -51,15 +51,13 @@ class Fonts {
 		let getFontFromLocalStorage = localStorage.getItem("fonts");
 		console.log(JSON.parse(getFontFromLocalStorage));
 		for (let f of JSON.parse(getFontFromLocalStorage)) {
-			console.log(f);
-			/* console.log(this.fontsList.filter(font => font.family.includes(f))); */
+			let test = this.fontsList.filter(font => font.family.includes(f));
+			console.log(test);
+			for (let t of test) {
+				this.fontsList.unshift(t);
+			}
+			console.log(this.fontsList);
 		}
-
-		/* let localFontStorage = JSON.parse(window.localStorage.getItem("fonts"));
-		if (localFontStorage.length > 0) console.log("sup");
-
-		console.log(localFontStorage);
-		console.log(localFontStorage); */
 	};
 
 	handleFontsLoad = newFontsResearch => {
@@ -71,8 +69,12 @@ class Fonts {
 			this.handleContainerAndURL(newFontsResearch);
 			this.setUpFonts(this.fontsListIndex, this.incrementor, false);
 		} else {
-			this.getFontFromLocalStorage();
+			/* console.log(this.fontsList); */
 			this.setUpFonts(this.fontsListIndex, this.incrementor, true);
+
+			/* if (localStorage.fonts && localStorage.fonts.length > 0) {
+				this.getFontFromLocalStorage();
+			} */
 		}
 	};
 

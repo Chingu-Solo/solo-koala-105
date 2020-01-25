@@ -103,7 +103,10 @@ class Fonts {
 		this.fontsListIndex = 0;
 		this.gridList.innerHTML = "";
 		this.fontsListIndexOnScroll = 0;
-		for (
+		this.incrementor = 15;
+		window.scrollTo(0, 0);
+		this.setUpFonts(this.fontsListIndex, this.incrementor, true);
+		/* for (
 			let i = this.fontsListIndex;
 			i < this.fontsListIndex + this.incrementor;
 			i++
@@ -112,6 +115,9 @@ class Fonts {
 			this.createFontContainer(this.stock.items[i]);
 			this.handleUrlFonts(this.stock.items[i]);
 		}
+		this.fontsListIndex += this.incrementor;
+		console.log(this.fontsListIndex); */
+
 		this.createURL();
 	}
 

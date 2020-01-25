@@ -72,7 +72,7 @@ const EventHandler = () => {
 		fonts.refresh();
 		changeFontSizeBtn.textContent = "40px";
 		initFontSize();
-		fonts.fontsListIndexOnScroll = 0;
+		/* fonts.fontsListIndexOnScroll = 0; */
 		/* fonts.fontsListIndexOnScroll = 0; */
 		console.log(fonts.fontsList);
 
@@ -212,6 +212,7 @@ const EventHandler = () => {
 			if (fonts.fontsList.length === 15) {
 				gridList.innerHTML = "";
 			} */
+			/* console.log(endPointScroll); */
 
 			fonts.handleFontsLoad("scroll");
 			initFontSize();

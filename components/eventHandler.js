@@ -86,6 +86,8 @@ const EventHandler = () => {
 			addFont.addEventListener("click", e => {
 				let retrieveFontFamily = e.target.previousSibling.innerHTML;
 				fonts.storeFont(retrieveFontFamily);
+				addFont.classList.add("test");
+				/* addFont.classList.remove("test"); */
 			});
 		}
 	};

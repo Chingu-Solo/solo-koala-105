@@ -359,6 +359,22 @@ main {
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
+.test {
+	animation: fadeOutUp 2s;
+	animation-fill-mode: none;
+}
+
+@keyframes fadeOutUp {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+		transform: translate3d(0, -100%, 0);
+	}
+}
+
 /********** Media queries **********/
 
 @media screen and (max-width: 1440px) {

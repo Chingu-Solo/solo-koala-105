@@ -33,7 +33,7 @@ class Fonts {
 		await EventHandler();
 	};
 
-	/* storeFont = font => {
+	storeFont = font => {
 		console.log("store");
 
 		if (localStorage.getItem("fonts")) {
@@ -51,14 +51,23 @@ class Fonts {
 		let getFontFromLocalStorage = localStorage.getItem("fonts");
 		console.log(JSON.parse(getFontFromLocalStorage));
 		for (let f of JSON.parse(getFontFromLocalStorage)) {
-			let test = this.fontsList.filter(font => font.family.includes(f));
+			/* let test = this.stock.items.filter(font => font.family.includes(f));
+			this.stock.items.splice()
 			console.log(test);
 			for (let t of test) {
-				this.fontsList.unshift(t);
-			}
-			console.log(this.fontsList);
+				this.stock.items.unshift(t);
+			} */
+			this.stock.items.map((el, i) => {
+				console.log("mappp");
+
+				if (el.family === f) {
+					this.stock.items.splice(i, 1);
+					this.stock.items.splice(0, 0, el);
+				}
+			});
+			console.log(this.stock.items);
 		}
-	}; */
+	};
 
 	handleFontsLoad = newFontsResearch => {
 		if (newFontsResearch === "scroll") {
@@ -69,11 +78,10 @@ class Fonts {
 			this.setUpFonts(this.fontsListIndex, this.incrementor, false);
 		} else {
 			/* console.log(this.fontsList); */
-			this.setUpFonts(this.fontsListIndex, this.incrementor, true);
-
-			/* if (localStorage.fonts && localStorage.fonts.length > 0) {
+			if (localStorage.fonts && localStorage.fonts.length > 0) {
 				this.getFontFromLocalStorage();
-			} */
+			}
+			this.setUpFonts(this.fontsListIndex, this.incrementor, true);
 		}
 	};
 

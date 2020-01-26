@@ -79,20 +79,44 @@ const EventHandler = () => {
 		searchFont.value = "";
 		inputFontTyped.value = "";
 		fonts.research = false;
+		addFontsOnLocalStorage();
 	});
 
 	const addFontsOnLocalStorage = () => {
+		refreshDOM();
 		for (let addFont of addFonts) {
 			addFont.addEventListener("click", e => {
 				let retrieveFontFamily = e.target.previousSibling.innerHTML;
-				fonts.storeFont(retrieveFontFamily);
-				addFont.classList.add("test");
+
+				if (addFont.textContent === "add_circle_outline") {
+					fonts.storeFont(retrieveFontFamily);
+					addFont.classList.add("animate");
+					addFont.classList.add("added");
+					setTimeout(() => {
+						addFont.textContent = "remove_circle_outline";
+						addFont.classList.remove("animate");
+					}, 500);
+				} else if (addFont.textContent === "remove_circle_outline") {
+					fonts.removeFont(retrieveFontFamily);
+					addFont.classList.add("animate");
+					setTimeout(() => {
+						addFont.textContent = "add_circle_outline";
+						addFont.classList.remove("animate");
+					}, 500);
+				}
 				/* addFont.textContent = "remove_circle_outline" */
 				/* addFont.classList.remove("test"); */
 			});
 		}
 	};
 	addFontsOnLocalStorage();
+
+	/* for (let addFont of addFonts) {
+		console.log("qdfqf");
+		if (addFont.classList.contains("added")) {
+			addFont.textContent = "remove_circle_outline";
+		}
+	} */
 
 	togglethemeBtn.addEventListener("click", () => {
 		const body = document.body;

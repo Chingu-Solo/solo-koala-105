@@ -359,8 +359,8 @@ main {
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
-.test {
-	animation: fadeOutUp 2s;
+.animate {
+	animation: fadeOutUp 0.5s;
 	animation-fill-mode: none;
 }
 

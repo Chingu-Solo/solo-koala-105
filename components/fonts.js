@@ -47,9 +47,20 @@ class Fonts {
 		}
 	};
 
+	removeFont = font => {
+		let getFontFromLocalStorage = JSON.parse(localStorage.getItem("fonts"));
+		console.log(font, getFontFromLocalStorage);
+		getFontFromLocalStorage.map((f, i) => {
+			if (f === font) {
+				getFontFromLocalStorage.splice(i, 1);
+			}
+		});
+		localStorage.setItem("fonts", JSON.stringify(getFontFromLocalStorage));
+	};
+
 	getFontFromLocalStorage = () => {
 		let getFontFromLocalStorage = localStorage.getItem("fonts");
-		console.log(JSON.parse(getFontFromLocalStorage));
+		/* console.log(JSON.parse(getFontFromLocalStorage)); */
 		for (let f of JSON.parse(getFontFromLocalStorage)) {
 			/* let test = this.stock.items.filter(font => font.family.includes(f));
 			this.stock.items.splice()
@@ -58,14 +69,12 @@ class Fonts {
 				this.stock.items.unshift(t);
 			} */
 			this.stock.items.map((el, i) => {
-				console.log("mappp");
-
 				if (el.family === f) {
 					this.stock.items.splice(i, 1);
 					this.stock.items.splice(0, 0, el);
+					console.log(el);
 				}
 			});
-			console.log(this.stock.items);
 		}
 	};
 
@@ -113,6 +122,9 @@ class Fonts {
 		this.fontsListIndexOnScroll = 0;
 		this.incrementor = 15;
 		window.scrollTo(0, 0);
+		if (localStorage.fonts && localStorage.fonts.length > 0) {
+			this.getFontFromLocalStorage();
+		}
 		this.setUpFonts(this.fontsListIndex, this.incrementor, true);
 		/* for (
 			let i = this.fontsListIndex;

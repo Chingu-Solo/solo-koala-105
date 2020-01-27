@@ -16,7 +16,6 @@ const HTMLTemplate = fonts => {
 	flexContainer.classList.add("flex");
 	addIcon.classList.add("material-icons");
 	addIcon.classList.add("add-font");
-	console.log(fonts.added);
 
 	if (fonts.added) addIcon.textContent = "remove_circle_outline";
 	else addIcon.textContent = "add_circle_outline";

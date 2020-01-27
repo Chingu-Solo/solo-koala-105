@@ -232,6 +232,15 @@ const EventHandler = () => {
 
 	// * Load fonts an scroll
 	document.addEventListener("scroll", e => {
+		/* console.log(window.pageYOffset); */
+
+		let t = document.querySelector("footer");
+		if (window.pageYOffset <= 100) {
+			t.style.display = "flex";
+		} else {
+			t.style.display = "none";
+		}
+
 		if (fonts.research === true) return;
 
 		let endPointScroll =

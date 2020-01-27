@@ -218,7 +218,7 @@ const EventHandler = () => {
 					}
 				}
 			}
-			fonts.fontsListIndexOnScroll = 5;
+			/* fonts.fontsListIndexOnScroll = 5; */
 		}
 
 		// Debounces makeAPICall method

@@ -3,6 +3,10 @@ import quotes from "./quotes.js";
 
 /* import Template from "./template.js"; */
 
+/**
+ * Handle all events between the DOM and {@link fonts}
+ *
+ */
 const EventHandler = () => {
 	let gridList = document.querySelector(".grid-list");
 

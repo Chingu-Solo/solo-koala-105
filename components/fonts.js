@@ -144,7 +144,7 @@ export class Fonts {
 	}
 
 	/**
-	 * Handle the loads of fonts according to the boolean value: if false, each new fonts from research
+	 * Handle the loads of fonts according to the boolean value
 	 *
 	 * @param {number} fontListIndex Respresents the index of iteration through the font list
 	 * @param {number} incrementor Represent the number that increment the {@link fontListIndex}

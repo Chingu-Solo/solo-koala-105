@@ -1,14 +1,12 @@
 {
-  "coverage": "56%",
+  "coverage": "68%",
   "expectCount": 25,
-  "actualCount": 14,
+  "actualCount": 17,
   "files": {
     "components/eventHandler.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        6
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "components/fonts.js": {
       "expectCount": 22,
@@ -26,17 +24,13 @@
     },
     "components/quotes.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        1
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "components/template.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        4
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     }
   }
 }

@@ -1,3 +1,6 @@
+/**
+ *  Array containing the Google sentences
+ */
 const quotes = [
 	"All their equipment and instruments are alive.",
 	"A red flare silhouetted the jagged edge of a wing.",

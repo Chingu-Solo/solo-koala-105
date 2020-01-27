@@ -13,7 +13,7 @@
 
 <header>
   <a href="./">Home</a>
-  
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
@@ -42,6 +42,13 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import quotes from &quot;./quotes.js&quot;;
 /* import fonts from &quot;./fonts.js&quot;; */
 
+/**
+ *
+ * @param {Object} fonts Font object as it is return by Google Font API
+ * @param {string} fonts.family Fonts family property
+ * @param {string} fonts.category Fonts category property
+ *
+ */
 const HTMLTemplate = fonts =&gt; {
 	let fontInfoContainer = document.createElement(&quot;div&quot;);
 	let flexContainer = document.createElement(&quot;div&quot;);
@@ -53,7 +60,6 @@ const HTMLTemplate = fonts =&gt; {
 	let randomQuote = quotes[randomNb];
 
 	fontInfoContainer.classList.add(&quot;font-info&quot;);
-
 	flexContainer.classList.add(&quot;flex&quot;);
 	addIcon.classList.add(&quot;material-icons&quot;);
 	addIcon.classList.add(&quot;add-font&quot;);

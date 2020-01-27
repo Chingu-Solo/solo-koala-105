@@ -1,6 +1,13 @@
 import quotes from "./quotes.js";
 /* import fonts from "./fonts.js"; */
 
+/**
+ *
+ * @param {Object} fonts Font object as it is return by Google Font API
+ * @param {string} fonts.family Fonts family property
+ * @param {string} fonts.category Fonts category property
+ *
+ */
 const HTMLTemplate = fonts => {
 	let fontInfoContainer = document.createElement("div");
 	let flexContainer = document.createElement("div");
@@ -12,7 +19,6 @@ const HTMLTemplate = fonts => {
 	let randomQuote = quotes[randomNb];
 
 	fontInfoContainer.classList.add("font-info");
-
 	flexContainer.classList.add("flex");
 	addIcon.classList.add("material-icons");
 	addIcon.classList.add("add-font");

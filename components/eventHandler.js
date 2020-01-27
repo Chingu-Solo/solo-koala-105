@@ -201,6 +201,7 @@ const EventHandler = () => {
 						s.textContent = inputFontTyped.value;
 					}
 				}
+				addFontsOnLocalStorage();
 			} else {
 				const filterFonts = fonts.stock.items.filter((
 					font // or fonts.stock.items.filter
@@ -217,6 +218,7 @@ const EventHandler = () => {
 						s.textContent = inputFontTyped.value;
 					}
 				}
+				addFontsOnLocalStorage();
 			}
 			/* fonts.fontsListIndexOnScroll = 5; */
 		}

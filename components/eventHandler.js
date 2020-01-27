@@ -191,10 +191,13 @@ const EventHandler = () => {
 		};
 
 		function makeAPICall() {
+			fonts.refresh();
+			refreshDOM();
+			initFontSize();
 			if (e.target.value.length === 0) {
-				fonts.refresh();
+				/* fonts.refresh();
 				refreshDOM();
-				initFontSize();
+				initFontSize(); */
 				fonts.research = false;
 				if (inputFontTyped.value.length > 0) {
 					for (let s of spanEditable) {

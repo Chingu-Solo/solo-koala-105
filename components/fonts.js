@@ -12,9 +12,6 @@ class Fonts {
 			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
 			(this.research = false),
 			(this.gridList = document.querySelector(".grid-list")),
-			/* (this.localStorageFont = JSON.parse(
-				window.localStorage.getItem("fonts")
-			)), */
 			(this.localStorageFont = []),
 			(this.finalURL = []);
 	}
@@ -34,8 +31,6 @@ class Fonts {
 	};
 
 	storeFont = font => {
-		console.log("store");
-
 		if (localStorage.getItem("fonts")) {
 			let getFontFromLocalStorage = JSON.parse(localStorage.getItem("fonts"));
 			if (getFontFromLocalStorage.includes(font)) return;
@@ -49,35 +44,27 @@ class Fonts {
 
 	removeFont = font => {
 		let getFontFromLocalStorage = JSON.parse(localStorage.getItem("fonts"));
-		console.log(font, getFontFromLocalStorage);
+
 		getFontFromLocalStorage.map((f, i) => {
 			if (f === font) {
 				getFontFromLocalStorage.splice(i, 1);
-				/* let removeAdded = this.stock.items.indexOf(font);
-
-				console.log(removeAdded); */
+				this.stock.items.map(ft => {
+					if (ft.family === f) delete ft.added;
+				});
 			}
 		});
 		localStorage.setItem("fonts", JSON.stringify(getFontFromLocalStorage));
-		console.log(this.stock.items);
 	};
 
 	getFontFromLocalStorage = () => {
 		let getFontFromLocalStorage = localStorage.getItem("fonts");
-		/* console.log(JSON.parse(getFontFromLocalStorage)); */
+
 		for (let f of JSON.parse(getFontFromLocalStorage)) {
-			/* let test = this.stock.items.filter(font => font.family.includes(f));
-			this.stock.items.splice()
-			console.log(test);
-			for (let t of test) {
-				this.stock.items.unshift(t);
-			} */
 			this.stock.items.map((el, i) => {
 				if (el.family === f) {
 					this.stock.items.splice(i, 1);
 					el.added = "added";
 					this.stock.items.splice(0, 0, el);
-					console.log(el);
 				}
 			});
 		}
@@ -111,7 +98,6 @@ class Fonts {
 		for (let i = fontListIndex; i < fontListIndex + incrementor; i++) {
 			this.handleContainerAndURL(this.stock.items[i]);
 		}
-		/* fontListIndex += incrementor; */
 	};
 
 	handleContainerAndURL = fontItem => {
@@ -131,17 +117,6 @@ class Fonts {
 			this.getFontFromLocalStorage();
 		}
 		this.setUpFonts(this.fontsListIndex, this.incrementor, true);
-		/* for (
-			let i = this.fontsListIndex;
-			i < this.fontsListIndex + this.incrementor;
-			i++
-		) {
-			this.fontsList.push(this.stock.items[i]);
-			this.createFontContainer(this.stock.items[i]);
-			this.handleUrlFonts(this.stock.items[i]);
-		}
-		this.fontsListIndex += this.incrementor;
-		console.log(this.fontsListIndex); */
 
 		this.createURL();
 	}

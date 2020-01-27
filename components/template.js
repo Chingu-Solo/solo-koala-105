@@ -1,4 +1,5 @@
 import quotes from "./quotes.js";
+import fonts from "./fonts.js";
 
 const HTMLTemplate = fonts => {
 	let fontInfoContainer = document.createElement("div");
@@ -15,7 +16,11 @@ const HTMLTemplate = fonts => {
 	flexContainer.classList.add("flex");
 	addIcon.classList.add("material-icons");
 	addIcon.classList.add("add-font");
-	addIcon.textContent = "add_circle_outline";
+	console.log(fonts.added);
+
+	if (fonts.added) addIcon.textContent = "remove_circle_outline";
+	else addIcon.textContent = "add_circle_outline";
+
 	spanEditable.classList.add("spanEditable");
 	spanEditable.setAttribute("contenteditable", "true");
 	spanEditable.textContent = `${randomQuote}`;

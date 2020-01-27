@@ -53,9 +53,13 @@ class Fonts {
 		getFontFromLocalStorage.map((f, i) => {
 			if (f === font) {
 				getFontFromLocalStorage.splice(i, 1);
+				/* let removeAdded = this.stock.items.indexOf(font);
+
+				console.log(removeAdded); */
 			}
 		});
 		localStorage.setItem("fonts", JSON.stringify(getFontFromLocalStorage));
+		console.log(this.stock.items);
 	};
 
 	getFontFromLocalStorage = () => {
@@ -71,6 +75,7 @@ class Fonts {
 			this.stock.items.map((el, i) => {
 				if (el.family === f) {
 					this.stock.items.splice(i, 1);
+					el.added = "added";
 					this.stock.items.splice(0, 0, el);
 					console.log(el);
 				}

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">components/fonts.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/fonts.js~Fonts.html">Fonts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-EventHandler">EventHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-HTMLTemplate">HTMLTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fonts">fonts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-quotes">quotes</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">components/fonts.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Template from &quot;./template.js&quot;;
+import EventHandler from &quot;./eventHandler.js&quot;;
+import { config } from &quot;../config.js&quot;;
+
+/**
+ * Create a Fonts object which handle and collect all fonts from google fonts API
+ *
+ * @example
+ * let fonts = new Fonts();
+ */
+export class Fonts {
+	/**
+	 * @constructor
+	 */
+	constructor() {
+		/**
+		 * @type {Object}
+		 */
+		(this.fontsList = []),
+			/**
+			 * @type {Object}
+			 */
+			(this.stock = []),
+			/**
+			 * @type {Number}
+			 */
+			(this.fontsListIndex = 0),
+			/**
+			 * @type {Number}
+			 */
+			(this.fontsListIndexOnScroll = 0),
+			/**
+			 * @type {Number}
+			 */
+			(this.incrementor = 15),
+			/**
+			 * @type {string}
+			 */
+			(this.apiURL = [&quot;https://fonts.googleapis.com/css?family=&quot;]),
+			/**
+			 * @type {boolean}
+			 */
+			(this.research = false),
+			/**
+			 * @type {Object}
+			 */
+			(this.gridList = document.querySelector(&quot;.grid-list&quot;)),
+			/**
+			 * @type {Object}
+			 */
+			(this.localStorageFont = []),
+			/**
+			 * @type {Object}
+			 */
+			(this.finalURL = []);
+	}
+	/**
+	 *  Fetch the fonts from google fonts api and save theme in stock array property
+	 *
+	 */
+	async getGFonts() {
+		const jsonFonts = await fetch(
+			`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&amp;key=${config.apiKey}`
+		);
+		try {
+			const gFonts = await jsonFonts.json();
+			this.stock = gFonts;
+			await this.handleFontsLoad();
+		} catch (error) {
+			console.log(error);
+		}
+		await EventHandler();
+	}
+
+	/**
+	 * Store font that has been clicked in localStorage
+	 *
+	 * @param {string} font Represents the font-family name
+	 */
+	storeFont(font) {
+		if (localStorage.getItem(&quot;fonts&quot;)) {
+			let getFontFromLocalStorage = JSON.parse(localStorage.getItem(&quot;fonts&quot;));
+			if (getFontFromLocalStorage.includes(font)) return;
+			getFontFromLocalStorage.push(font);
+			localStorage.setItem(&quot;fonts&quot;, JSON.stringify(getFontFromLocalStorage));
+		} else {
+			this.localStorageFont.push(font);
+			localStorage.setItem(&quot;fonts&quot;, JSON.stringify(this.localStorageFont));
+		}
+	}
+
+	/**
+	 * Remove font from localStorage and update it in stock as well to handle state of add/remove button
+	 *
+	 * @param {string} font Represents the font-family name
+	 */
+	removeFont(font) {
+		let getFontFromLocalStorage = JSON.parse(localStorage.getItem(&quot;fonts&quot;));
+		getFontFromLocalStorage.map((f, i) =&gt; {
+			if (f === font) {
+				getFontFromLocalStorage.splice(i, 1);
+				this.stock.items.map(ft =&gt; {
+					if (ft.family === f) delete ft.added;
+				});
+			}
+		});
+		localStorage.setItem(&quot;fonts&quot;, JSON.stringify(getFontFromLocalStorage));
+	}
+
+	/**
+	 *  Handle the display of saved fonts by getting the fonts from localStorage and placing them at the begining of the stock array property making shure there is no doublon
+	 */
+	getFontFromLocalStorage() {
+		let getFontFromLocalStorage = localStorage.getItem(&quot;fonts&quot;);
+		for (let f of JSON.parse(getFontFromLocalStorage)) {
+			this.stock.items.map((el, i) =&gt; {
+				if (el.family === f) {
+					this.stock.items.splice(i, 1);
+					el.added = &quot;added&quot;;
+					this.stock.items.splice(0, 0, el);
+				}
+			});
+		}
+	}
+
+	/**
+	 *  Handle fonts load according to the parameter: scroll, value of input search or the initial loading fonts
+	 *
+	 * @param {string} newFontsResearch Represents either &quot;scroll&quot; or input search result
+	 */
+	handleFontsLoad(newFontsResearch) {
+		if (newFontsResearch === &quot;scroll&quot;) {
+			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor, true);
+		} else if (newFontsResearch) {
+			this.research = true;
+			this.handleContainerAndURL(newFontsResearch);
+			this.setUpFonts(this.fontsListIndex, this.incrementor, false);
+		} else {
+			if (localStorage.fonts &amp;&amp; localStorage.fonts.length &gt; 0) {
+				this.getFontFromLocalStorage();
+			}
+			this.setUpFonts(this.fontsListIndex, this.incrementor, true);
+		}
+	}
+
+	/**
+	 * Handle the loads of fonts according to the boolean value: if false, each new fonts from research
+	 *
+	 * @param {number} fontListIndex Respresents the index of iteration through the font list
+	 * @param {number} incrementor Represent the number that increment the {@link fontListIndex}
+	 * @param {boolean} bool Represent the boolean that indicate how to handle the iteration if either search is: an initial loading fonts, a scroll or an input search
+	 */
+	setUpFonts(fontListIndex, incrementor, bool) {
+		bool
+			? this.loopOverFontList(fontListIndex, incrementor)
+			: (fontListIndex += incrementor);
+		this.fontsListIndexOnScroll += incrementor;
+		this.createURL();
+	}
+
+	/**
+	 *
+	 * @param {number} fontListIndex Respresents the index of iteration through the font list
+	 * @param {number} incrementor Represent the number that increment the {@link fontListIndex}
+	 */
+	loopOverFontList(fontListIndex, incrementor) {
+		for (let i = fontListIndex; i &lt; fontListIndex + incrementor; i++) {
+			this.handleContainerAndURL(this.stock.items[i]);
+		}
+	}
+
+	/**
+	 *
+	 * @param {Object} fontItem Object return from the google font API
+	 */
+	handleContainerAndURL(fontItem) {
+		this.fontsList.push(fontItem);
+		this.createFontContainer(fontItem);
+		this.handleUrlFonts(fontItem);
+	}
+
+	/**
+	 *  Refresh the page as if it was reloaded
+	 */
+	refresh() {
+		this.fontsList = [];
+		this.fontsListIndex = 0;
+		this.gridList.innerHTML = &quot;&quot;;
+		this.fontsListIndexOnScroll = 0;
+		this.incrementor = 15;
+		window.scrollTo(0, 0);
+		if (localStorage.fonts &amp;&amp; localStorage.fonts.length &gt; 0) {
+			this.getFontFromLocalStorage();
+		}
+		this.setUpFonts(this.fontsListIndex, this.incrementor, true);
+
+		this.createURL();
+	}
+
+	/**
+	 * Create a font template for each fonts
+	 *
+	 * @param {Object} font Object return from the google font API
+	 * @param {boolean} search Boolean to know if the query is from research or not
+	 */
+	createFontContainer(font, search) {
+		if (search) {
+			this.gridList.innerHTML = &quot;&quot;;
+			for (let f of font) {
+				const templateFont = Template(f);
+				this.gridList.appendChild(templateFont);
+			}
+		} else {
+			const templateFont = Template(font);
+			this.gridList.appendChild(templateFont);
+		}
+	}
+
+	/**
+	 *  Format each font name before creating an url
+	 *
+	 * @param {Object} fontsList Object return from the google font API
+	 */
+	handleUrlFonts(fontsList) {
+		let regexSpace = / /g;
+		let formattedFont = fontsList.family.replace(regexSpace, &quot;+&quot;);
+		this.apiURL.push(formattedFont);
+	}
+
+	/**
+	 * Createand format a final url with all font name
+	 */
+	createURL() {
+		this.finalURL = [];
+		this.apiURL.map((name, index, arr) =&gt; {
+			index === 0 || index === 1
+				? this.finalURL.push(name)
+				: index === arr.length - 1
+				? this.finalURL.push(`|${name}&amp;display=swap`)
+				: this.finalURL.push(`|${name}`);
+		});
+
+		let finalURL = this.finalURL.join(&quot;&quot;);
+		let linkUrl = document.createElement(&quot;link&quot;);
+		linkUrl.setAttribute(&quot;href&quot;, `${finalURL}`);
+		linkUrl.setAttribute(&quot;rel&quot;, &quot;stylesheet&quot;);
+		linkUrl.setAttribute(&quot;id&quot;, &quot;fonts-url&quot;);
+
+		let HTMLlink = document.getElementById(&quot;fonts-url&quot;);
+
+		if (HTMLlink) {
+			HTMLlink.remove();
+			document.head.appendChild(linkUrl);
+		} else document.head.appendChild(linkUrl);
+	}
+}
+
+let fonts = new Fonts();
+
+export default fonts;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

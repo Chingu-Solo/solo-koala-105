@@ -1,0 +1,16 @@
+{
+	"source": "./components",
+	"destination": "./docs",
+	"includes": ["\\.js$"],
+	"excludes": ["\\.config\\.js$"],
+	"plugins": [
+		{
+			"name": "esdoc-standard-plugin",
+			"option": {
+				"undocumentIdentifier": { "enable": true },
+				"unexportedIdentifier": { "enable": false },
+				"typeInference": { "enable": true }
+			}
+		}
+	]
+}

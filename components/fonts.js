@@ -2,21 +2,63 @@ import Template from "./template.js";
 import EventHandler from "./eventHandler.js";
 import { config } from "../config.js";
 
-class Fonts {
+/**
+ * Create a Fonts object which handle and collect all fonts from google fonts API
+ *
+ * @example
+ * let fonts = new Fonts();
+ */
+export class Fonts {
+	/**
+	 * @constructor
+	 */
 	constructor() {
+		/**
+		 * @type {Object}
+		 */
 		(this.fontsList = []),
+			/**
+			 * @type {Object}
+			 */
 			(this.stock = []),
+			/**
+			 * @type {Number}
+			 */
 			(this.fontsListIndex = 0),
+			/**
+			 * @type {Number}
+			 */
 			(this.fontsListIndexOnScroll = 0),
+			/**
+			 * @type {Number}
+			 */
 			(this.incrementor = 15),
+			/**
+			 * @type {string}
+			 */
 			(this.apiURL = ["https://fonts.googleapis.com/css?family="]),
+			/**
+			 * @type {boolean}
+			 */
 			(this.research = false),
+			/**
+			 * @type {Object}
+			 */
 			(this.gridList = document.querySelector(".grid-list")),
+			/**
+			 * @type {Object}
+			 */
 			(this.localStorageFont = []),
+			/**
+			 * @type {Object}
+			 */
 			(this.finalURL = []);
 	}
-
-	getGFonts = async () => {
+	/**
+	 *  Fetch the fonts from google fonts api and save theme in stock array property
+	 *
+	 */
+	async getGFonts() {
 		const jsonFonts = await fetch(
 			`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${config.apiKey}`
 		);
@@ -28,9 +70,14 @@ class Fonts {
 			console.log(error);
 		}
 		await EventHandler();
-	};
+	}
 
-	storeFont = font => {
+	/**
+	 * Store font that has been clicked in localStorage
+	 *
+	 * @param {string} font Represents the font-family name
+	 */
+	storeFont(font) {
 		if (localStorage.getItem("fonts")) {
 			let getFontFromLocalStorage = JSON.parse(localStorage.getItem("fonts"));
 			if (getFontFromLocalStorage.includes(font)) return;
@@ -40,11 +87,15 @@ class Fonts {
 			this.localStorageFont.push(font);
 			localStorage.setItem("fonts", JSON.stringify(this.localStorageFont));
 		}
-	};
+	}
 
-	removeFont = font => {
+	/**
+	 * Remove font from localStorage and update it in stock as well to handle state of add/remove button
+	 *
+	 * @param {string} font Represents the font-family name
+	 */
+	removeFont(font) {
 		let getFontFromLocalStorage = JSON.parse(localStorage.getItem("fonts"));
-
 		getFontFromLocalStorage.map((f, i) => {
 			if (f === font) {
 				getFontFromLocalStorage.splice(i, 1);
@@ -54,11 +105,13 @@ class Fonts {
 			}
 		});
 		localStorage.setItem("fonts", JSON.stringify(getFontFromLocalStorage));
-	};
+	}
 
-	getFontFromLocalStorage = () => {
+	/**
+	 *  Handle the display of saved fonts by getting the fonts from localStorage and placing them at the begining of the stock array property making shure there is no doublon
+	 */
+	getFontFromLocalStorage() {
 		let getFontFromLocalStorage = localStorage.getItem("fonts");
-
 		for (let f of JSON.parse(getFontFromLocalStorage)) {
 			this.stock.items.map((el, i) => {
 				if (el.family === f) {
@@ -68,9 +121,14 @@ class Fonts {
 				}
 			});
 		}
-	};
+	}
 
-	handleFontsLoad = newFontsResearch => {
+	/**
+	 *  Handle fonts load according to the parameter: scroll, value of input search or the initial loading fonts
+	 *
+	 * @param {string} newFontsResearch Represents either "scroll" or input search result
+	 */
+	handleFontsLoad(newFontsResearch) {
 		if (newFontsResearch === "scroll") {
 			this.setUpFonts(this.fontsListIndexOnScroll, this.incrementor, true);
 		} else if (newFontsResearch) {
@@ -78,34 +136,52 @@ class Fonts {
 			this.handleContainerAndURL(newFontsResearch);
 			this.setUpFonts(this.fontsListIndex, this.incrementor, false);
 		} else {
-			/* console.log(this.fontsList); */
 			if (localStorage.fonts && localStorage.fonts.length > 0) {
 				this.getFontFromLocalStorage();
 			}
 			this.setUpFonts(this.fontsListIndex, this.incrementor, true);
 		}
-	};
+	}
 
-	setUpFonts = (fontListIndex, incrementor, bool) => {
+	/**
+	 * Handle the loads of fonts according to the boolean value: if false, each new fonts from research
+	 *
+	 * @param {number} fontListIndex Respresents the index of iteration through the font list
+	 * @param {number} incrementor Represent the number that increment the {@link fontListIndex}
+	 * @param {boolean} bool Represent the boolean that indicate how to handle the iteration if either search is: an initial loading fonts, a scroll or an input search
+	 */
+	setUpFonts(fontListIndex, incrementor, bool) {
 		bool
 			? this.loopOverFontList(fontListIndex, incrementor)
 			: (fontListIndex += incrementor);
 		this.fontsListIndexOnScroll += incrementor;
 		this.createURL();
-	};
+	}
 
-	loopOverFontList = (fontListIndex, incrementor) => {
+	/**
+	 *
+	 * @param {number} fontListIndex Respresents the index of iteration through the font list
+	 * @param {number} incrementor Represent the number that increment the {@link fontListIndex}
+	 */
+	loopOverFontList(fontListIndex, incrementor) {
 		for (let i = fontListIndex; i < fontListIndex + incrementor; i++) {
 			this.handleContainerAndURL(this.stock.items[i]);
 		}
-	};
+	}
 
-	handleContainerAndURL = fontItem => {
+	/**
+	 *
+	 * @param {Object} fontItem Object return from the google font API
+	 */
+	handleContainerAndURL(fontItem) {
 		this.fontsList.push(fontItem);
 		this.createFontContainer(fontItem);
 		this.handleUrlFonts(fontItem);
-	};
+	}
 
+	/**
+	 *  Refresh the page as if it was reloaded
+	 */
 	refresh() {
 		this.fontsList = [];
 		this.fontsListIndex = 0;
@@ -121,7 +197,13 @@ class Fonts {
 		this.createURL();
 	}
 
-	createFontContainer = (font, search) => {
+	/**
+	 * Create a font template for each fonts
+	 *
+	 * @param {Object} font Object return from the google font API
+	 * @param {boolean} search Boolean to know if the query is from research or not
+	 */
+	createFontContainer(font, search) {
 		if (search) {
 			this.gridList.innerHTML = "";
 			for (let f of font) {
@@ -132,15 +214,23 @@ class Fonts {
 			const templateFont = Template(font);
 			this.gridList.appendChild(templateFont);
 		}
-	};
+	}
 
-	handleUrlFonts = fontsList => {
+	/**
+	 *  Format each font name before creating an url
+	 *
+	 * @param {Object} fontsList Object return from the google font API
+	 */
+	handleUrlFonts(fontsList) {
 		let regexSpace = / /g;
 		let formattedFont = fontsList.family.replace(regexSpace, "+");
 		this.apiURL.push(formattedFont);
-	};
+	}
 
-	createURL = () => {
+	/**
+	 * Createand format a final url with all font name
+	 */
+	createURL() {
 		this.finalURL = [];
 		this.apiURL.map((name, index, arr) => {
 			index === 0 || index === 1
@@ -162,9 +252,9 @@ class Fonts {
 			HTMLlink.remove();
 			document.head.appendChild(linkUrl);
 		} else document.head.appendChild(linkUrl);
-	};
+	}
 }
 
-const fonts = new Fonts();
+let fonts = new Fonts();
 
 export default fonts;

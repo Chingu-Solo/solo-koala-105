@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">components/eventHandler.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/fonts.js~Fonts.html">Fonts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-EventHandler">EventHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-HTMLTemplate">HTMLTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fonts">fonts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-quotes">quotes</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">components/eventHandler.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fonts from &quot;./fonts.js&quot;;
+import quotes from &quot;./quotes.js&quot;;
+
+/* import Template from &quot;./template.js&quot;; */
+
+const EventHandler = () =&gt; {
+	let gridList = document.querySelector(&quot;.grid-list&quot;);
+
+	const togglethemeBtn = document.querySelector(&quot;.toggle-theme__btn&quot;);
+	let toggleColor = false;
+	const toggleViewBtn = document.querySelector(&quot;.toggle-view__btn&quot;);
+
+	const inputFontTyped = document.querySelector(&quot;.type-something__input&quot;);
+	let spanEditable = document.querySelectorAll(&quot;.spanEditable&quot;);
+	const searchFont = document.querySelector(&quot;.search-font__input&quot;);
+
+	let fontInfoContainer = document.querySelectorAll(&quot;.font-info&quot;);
+	const goToTop = document.getElementById(&quot;go-to-top&quot;);
+
+	const changeFontSize = document.querySelector(&quot;.change-font-size&quot;);
+	const changeFontSizeBtn = document.querySelector(&quot;.change-font-size__btn&quot;);
+	let fontsSizeOptions = document.querySelectorAll(&quot;.font-size-option&quot;);
+	const refreshBtn = document.querySelector(&quot;.refresh__btn&quot;);
+
+	let addFonts = document.querySelectorAll(&quot;.add-font&quot;);
+
+	/* const head = document.getElementsByTagName(&quot;head&quot;)[0];
+	const link = document.createElement(&quot;link&quot;); */
+	/* const changeFontSize = document.querySelector(&quot;.down-arrow&quot;); */
+
+	const refreshDOM = () =&gt; {
+		fontInfoContainer = document.querySelectorAll(&quot;.font-info&quot;);
+		spanEditable = document.querySelectorAll(&quot;.spanEditable&quot;);
+		addFonts = document.querySelectorAll(&quot;.add-font&quot;);
+	};
+
+	// *-----* Font size handler *-----* //
+
+	// * Loop over font size button to fire a click event listener on each of them and update the font size in each spanEditable
+	for (let fontSizeOption of fontsSizeOptions) {
+		fontSizeOption.addEventListener(&quot;click&quot;, e =&gt; {
+			changeFontSizeBtn.textContent = `${e.target.textContent}px`;
+			for (let s of spanEditable) {
+				s.style.fontSize = `${e.target.textContent}px`;
+			}
+		});
+	}
+
+	// *  Initialize button text-contentand spanEditable font size
+	changeFontSizeBtn.textContent = &quot;40px&quot;;
+	const initFontSize = () =&gt; {
+		refreshDOM();
+		for (let s of spanEditable) {
+			s.style.fontSize = `${changeFontSizeBtn.textContent}`;
+		}
+	};
+	initFontSize();
+
+	// * Display the fonts size choice on click event
+	changeFontSize.addEventListener(&quot;click&quot;, () =&gt; {
+		document.querySelector(&quot;.show-size&quot;).style.display === &quot;block&quot;
+			? (document.querySelector(&quot;.show-size&quot;).style.display = &quot;none&quot;)
+			: (document.querySelector(&quot;.show-size&quot;).style.display = &quot;block&quot;);
+	});
+
+	// * refresh page with refresh button as if it was reloaded
+	refreshBtn.addEventListener(&quot;click&quot;, () =&gt; {
+		if (document.body.hasAttribute(&quot;black&quot;))
+			document.body.removeAttribute(&quot;black&quot;);
+		if (gridList.hasAttribute(&quot;wide&quot;)) gridList.removeAttribute(&quot;wide&quot;);
+		/* fonts.fontsList = []; */
+		fonts.refresh();
+		changeFontSizeBtn.textContent = &quot;40px&quot;;
+		initFontSize();
+		/* fonts.fontsListIndexOnScroll = 0; */
+		/* fonts.fontsListIndexOnScroll = 0; */
+		console.log(fonts.fontsList);
+
+		searchFont.value = &quot;&quot;;
+		inputFontTyped.value = &quot;&quot;;
+		fonts.research = false;
+		addFontsOnLocalStorage();
+	});
+
+	const addFontsOnLocalStorage = () =&gt; {
+		refreshDOM();
+		for (let addFont of addFonts) {
+			addFont.addEventListener(&quot;click&quot;, e =&gt; {
+				let retrieveFontFamily = e.target.previousSibling.innerHTML;
+
+				if (addFont.textContent === &quot;add_circle_outline&quot;) {
+					fonts.storeFont(retrieveFontFamily);
+					addFont.classList.add(&quot;animate&quot;);
+					addFont.classList.add(&quot;added&quot;);
+					setTimeout(() =&gt; {
+						addFont.textContent = &quot;remove_circle_outline&quot;;
+						addFont.classList.remove(&quot;animate&quot;);
+					}, 500);
+				} else if (addFont.textContent === &quot;remove_circle_outline&quot;) {
+					fonts.removeFont(retrieveFontFamily);
+					addFont.classList.add(&quot;animate&quot;);
+					setTimeout(() =&gt; {
+						addFont.textContent = &quot;add_circle_outline&quot;;
+						addFont.classList.remove(&quot;animate&quot;);
+					}, 500);
+				}
+				/* addFont.textContent = &quot;remove_circle_outline&quot; */
+				/* addFont.classList.remove(&quot;test&quot;); */
+			});
+		}
+	};
+	addFontsOnLocalStorage();
+
+	/* for (let addFont of addFonts) {
+		console.log(&quot;qdfqf&quot;);
+		if (addFont.classList.contains(&quot;added&quot;)) {
+			addFont.textContent = &quot;remove_circle_outline&quot;;
+		}
+	} */
+
+	togglethemeBtn.addEventListener(&quot;click&quot;, () =&gt; {
+		const body = document.body;
+		if (toggleColor) {
+			body.removeAttribute(&quot;black&quot;);
+		} else {
+			body.setAttribute(&quot;black&quot;, &quot;&quot;);
+		}
+		toggleColor = !toggleColor;
+	});
+
+	const getRandomQuotes = () =&gt; {
+		let randomNb = Math.floor(Math.random() * quotes.length);
+		return quotes[randomNb];
+	};
+
+	inputFontTyped.addEventListener(&quot;input&quot;, e =&gt; {
+		spanEditable = document.querySelectorAll(&quot;.spanEditable&quot;);
+		for (let i = 0; i &lt; spanEditable.length; i++) {
+			if (e.target.value.length === 0) {
+				spanEditable[i].textContent = `${getRandomQuotes()}`;
+			} else {
+				spanEditable[i].textContent = e.target.value;
+			}
+		}
+	});
+
+	toggleViewBtn.addEventListener(&quot;click&quot;, () =&gt; {
+		gridList.hasAttribute(&quot;wide&quot;)
+			? gridList.removeAttribute(&quot;wide&quot;)
+			: gridList.setAttribute(&quot;wide&quot;, &quot;&quot;);
+	});
+
+	window.onscroll = () =&gt; {
+		onScroll();
+	};
+
+	const onScroll = () =&gt; {
+		let toolbar = document.querySelector(&quot;.global-toolbar&quot;);
+		if (
+			document.body.scrollTop &gt; 20 ||
+			document.documentElement.scrollTop &gt; 20
+		) {
+			goToTop.style.display = &quot;block&quot;;
+			toolbar.setAttribute(&quot;fixed-nav&quot;, &quot;&quot;);
+		} else {
+			goToTop.style.display = &quot;none&quot;;
+			toolbar.removeAttribute(&quot;fixed-nav&quot;);
+		}
+	};
+
+	goToTop.addEventListener(&quot;click&quot;, () =&gt; {
+		scrollToTop();
+	});
+
+	const scrollToTop = () =&gt; {
+		const c = document.documentElement.scrollTop || document.body.scrollTop;
+		if (c &gt; 0) {
+			window.requestAnimationFrame(scrollToTop);
+			window.scrollTo(0, c - c / 7);
+		}
+	};
+
+	let timerId;
+	searchFont.addEventListener(&quot;input&quot;, e =&gt; {
+		var debounceFunction = function(func, delay) {
+			// Cancels the setTimeout method execution
+			clearTimeout(timerId);
+
+			// Executes the func after delay time.
+			timerId = setTimeout(func, delay);
+		};
+
+		function makeAPICall() {
+			fonts.refresh();
+			refreshDOM();
+			initFontSize();
+			if (e.target.value.length === 0) {
+				/* fonts.refresh();
+				refreshDOM();
+				initFontSize(); */
+				fonts.research = false;
+				if (inputFontTyped.value.length &gt; 0) {
+					for (let s of spanEditable) {
+						s.textContent = inputFontTyped.value;
+					}
+				}
+				addFontsOnLocalStorage();
+			} else {
+				const filterFonts = fonts.stock.items.filter((
+					font // or fonts.stock.items.filter
+				) =&gt; font.family.toLowerCase().includes(e.target.value.toLowerCase()));
+				for (let filterFont of filterFonts) {
+					fonts.handleFontsLoad(filterFont);
+				}
+
+				let search = true;
+				fonts.createFontContainer(filterFonts, search);
+				initFontSize();
+				if (inputFontTyped.value.length &gt; 0) {
+					for (let s of spanEditable) {
+						s.textContent = inputFontTyped.value;
+					}
+				}
+				addFontsOnLocalStorage();
+			}
+			/* fonts.fontsListIndexOnScroll = 5; */
+		}
+
+		// Debounces makeAPICall method
+		debounceFunction(makeAPICall, 2000);
+	});
+
+	// * Load fonts an scroll
+	document.addEventListener(&quot;scroll&quot;, e =&gt; {
+		/* console.log(window.pageYOffset); */
+
+		let t = document.querySelector(&quot;footer&quot;);
+		if (window.pageYOffset &lt;= 100) {
+			t.style.display = &quot;flex&quot;;
+		} else {
+			t.style.display = &quot;none&quot;;
+		}
+
+		if (fonts.research === true) return;
+
+		let endPointScroll =
+			0 + document.body.clientHeight - window.innerHeight - window.scrollY;
+		if (endPointScroll === 0) return;
+		if (endPointScroll &lt; 200) {
+			refreshDOM();
+			/* fonts.fontsList = [] */
+			/* console.log(fonts.fontsList.length);
+			if (fonts.fontsList.length === 15) {
+				gridList.innerHTML = &quot;&quot;;
+			} */
+			/* console.log(endPointScroll); */
+
+			fonts.handleFontsLoad(&quot;scroll&quot;);
+			initFontSize();
+			if (inputFontTyped.value.length &gt; 0) {
+				for (let s of spanEditable) {
+					s.textContent = inputFontTyped.value;
+				}
+			}
+			addFontsOnLocalStorage();
+			console.log(fonts.fontsList);
+			console.log(fonts.stock);
+		}
+	});
+};
+
+export default EventHandler;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

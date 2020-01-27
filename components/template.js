@@ -1,5 +1,5 @@
 import quotes from "./quotes.js";
-import fonts from "./fonts.js";
+/* import fonts from "./fonts.js"; */
 
 const HTMLTemplate = fonts => {
 	let fontInfoContainer = document.createElement("div");

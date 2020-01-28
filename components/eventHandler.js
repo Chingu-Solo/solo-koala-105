@@ -23,7 +23,6 @@ const EventHandler = () => {
 	const changeFontSizeBtn = document.querySelector(".change-font-size__btn");
 	let fontsSizeOptions = document.querySelectorAll(".font-size-option");
 	const refreshBtn = document.querySelector(".refresh__btn");
-	let selectedBtn = document.querySelector(".selected");
 
 	let addFonts = document.querySelectorAll(".add-font");
 
@@ -38,6 +37,7 @@ const EventHandler = () => {
 	// * Loop over font size button to fire a click event listener on each of them and update the font size in each spanEditable
 	for (let fontSizeOption of fontsSizeOptions) {
 		fontSizeOption.addEventListener("click", e => {
+			let selectedBtn = document.querySelector(".selected");
 			if (selectedBtn) selectedBtn.classList.remove("selected");
 			fontSizeOption.classList.add("selected");
 			changeFontSizeBtn.textContent = `${e.target.textContent}px`;
@@ -51,6 +51,10 @@ const EventHandler = () => {
 	// *  Initialize button text-contentand spanEditable font size
 	changeFontSizeBtn.textContent = "40px";
 	const initFontSize = () => {
+		for (let fontSizeOption of fontsSizeOptions) {
+			if (fontSizeOption.textContent + "px" === changeFontSizeBtn.textContent)
+				fontSizeOption.classList.add("selected");
+		}
 		refreshDOM();
 		for (let s of spanEditable) {
 			s.style.fontSize = `${changeFontSizeBtn.textContent}`;

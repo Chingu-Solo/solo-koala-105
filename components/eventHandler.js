@@ -1,8 +1,6 @@
 import fonts from "./fonts.js";
 import quotes from "./quotes.js";
 
-/* import Template from "./template.js"; */
-
 /**
  * Handle all events between the DOM and {@link fonts}
  *
@@ -27,10 +25,6 @@ const EventHandler = () => {
 	const refreshBtn = document.querySelector(".refresh__btn");
 
 	let addFonts = document.querySelectorAll(".add-font");
-
-	/* const head = document.getElementsByTagName("head")[0];
-	const link = document.createElement("link"); */
-	/* const changeFontSize = document.querySelector(".down-arrow"); */
 
 	const refreshDOM = () => {
 		fontInfoContainer = document.querySelectorAll(".font-info");
@@ -72,26 +66,21 @@ const EventHandler = () => {
 		if (document.body.hasAttribute("black"))
 			document.body.removeAttribute("black");
 		if (gridList.hasAttribute("wide")) gridList.removeAttribute("wide");
-		/* fonts.fontsList = []; */
 		fonts.refresh();
 		changeFontSizeBtn.textContent = "40px";
 		initFontSize();
-		/* fonts.fontsListIndexOnScroll = 0; */
-		/* fonts.fontsListIndexOnScroll = 0; */
-		console.log(fonts.fontsList);
-
 		searchFont.value = "";
 		inputFontTyped.value = "";
 		fonts.research = false;
-		addFontsOnLocalStorage();
+		handleFontsOnLocalStorage();
 	});
 
-	const addFontsOnLocalStorage = () => {
+	// * Add or remove font on local storage
+	const handleFontsOnLocalStorage = () => {
 		refreshDOM();
 		for (let addFont of addFonts) {
 			addFont.addEventListener("click", e => {
 				let retrieveFontFamily = e.target.previousSibling.innerHTML;
-
 				if (addFont.textContent === "add_circle_outline") {
 					fonts.storeFont(retrieveFontFamily);
 					addFont.classList.add("animate");
@@ -108,20 +97,12 @@ const EventHandler = () => {
 						addFont.classList.remove("animate");
 					}, 500);
 				}
-				/* addFont.textContent = "remove_circle_outline" */
-				/* addFont.classList.remove("test"); */
 			});
 		}
 	};
-	addFontsOnLocalStorage();
+	handleFontsOnLocalStorage();
 
-	/* for (let addFont of addFonts) {
-		console.log("qdfqf");
-		if (addFont.classList.contains("added")) {
-			addFont.textContent = "remove_circle_outline";
-		}
-	} */
-
+	// * Handle the toggle theme
 	togglethemeBtn.addEventListener("click", () => {
 		const body = document.body;
 		if (toggleColor) {
@@ -132,11 +113,13 @@ const EventHandler = () => {
 		toggleColor = !toggleColor;
 	});
 
+	// * Return random number to get a random quote from quotes array
 	const getRandomQuotes = () => {
 		let randomNb = Math.floor(Math.random() * quotes.length);
 		return quotes[randomNb];
 	};
 
+	// * Fire the input input typed text to retrieve it in the span editable
 	inputFontTyped.addEventListener("input", e => {
 		spanEditable = document.querySelectorAll(".spanEditable");
 		for (let i = 0; i < spanEditable.length; i++) {
@@ -148,16 +131,18 @@ const EventHandler = () => {
 		}
 	});
 
+	// * Toggle between view
 	toggleViewBtn.addEventListener("click", () => {
 		gridList.hasAttribute("wide")
 			? gridList.removeAttribute("wide")
 			: gridList.setAttribute("wide", "");
 	});
 
+	// * Fire the on scroll method from window
 	window.onscroll = () => {
 		onScroll();
 	};
-
+	// * Handle deferent action according to the srcolling
 	const onScroll = () => {
 		let toolbar = document.querySelector(".global-toolbar");
 		if (
@@ -184,6 +169,7 @@ const EventHandler = () => {
 		}
 	};
 
+	// * Handle research with a debouncing function in order to limit the call to stock to 1 sec from last input event call. This way it increase performance by limiting t
 	let timerId;
 	searchFont.addEventListener("input", e => {
 		var debounceFunction = function(func, delay) {
@@ -194,21 +180,18 @@ const EventHandler = () => {
 			timerId = setTimeout(func, delay);
 		};
 
-		function makeAPICall() {
+		function handleResearchCall() {
 			fonts.refresh();
 			refreshDOM();
 			initFontSize();
 			if (e.target.value.length === 0) {
-				/* fonts.refresh();
-				refreshDOM();
-				initFontSize(); */
 				fonts.research = false;
 				if (inputFontTyped.value.length > 0) {
 					for (let s of spanEditable) {
 						s.textContent = inputFontTyped.value;
 					}
 				}
-				addFontsOnLocalStorage();
+				handleFontsOnLocalStorage();
 			} else {
 				const filterFonts = fonts.stock.items.filter((
 					font // or fonts.stock.items.filter
@@ -225,19 +208,16 @@ const EventHandler = () => {
 						s.textContent = inputFontTyped.value;
 					}
 				}
-				addFontsOnLocalStorage();
+				handleFontsOnLocalStorage();
 			}
-			/* fonts.fontsListIndexOnScroll = 5; */
 		}
 
-		// Debounces makeAPICall method
-		debounceFunction(makeAPICall, 2000);
+		// Debounces handleResearchCall method
+		debounceFunction(handleResearchCall, 1000);
 	});
 
 	// * Load fonts an scroll
 	document.addEventListener("scroll", e => {
-		/* console.log(window.pageYOffset); */
-
 		let t = document.querySelector("footer");
 		if (window.pageYOffset <= 100) {
 			t.style.display = "flex";
@@ -252,13 +232,6 @@ const EventHandler = () => {
 		if (endPointScroll === 0) return;
 		if (endPointScroll < 200) {
 			refreshDOM();
-			/* fonts.fontsList = [] */
-			/* console.log(fonts.fontsList.length);
-			if (fonts.fontsList.length === 15) {
-				gridList.innerHTML = "";
-			} */
-			/* console.log(endPointScroll); */
-
 			fonts.handleFontsLoad("scroll");
 			initFontSize();
 			if (inputFontTyped.value.length > 0) {
@@ -266,9 +239,7 @@ const EventHandler = () => {
 					s.textContent = inputFontTyped.value;
 				}
 			}
-			addFontsOnLocalStorage();
-			console.log(fonts.fontsList);
-			console.log(fonts.stock);
+			handleFontsOnLocalStorage();
 		}
 	});
 };

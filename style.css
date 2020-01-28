@@ -432,6 +432,13 @@ address a {
 	display: flex;
 }
 
+.copyright-container a {
+	text-decoration: none;
+	color: inherit;
+	font-weight: bold;
+	font-style: normal;
+}
+
 .backgrnd-img {
 	background-color: white;
 	width: 25px;

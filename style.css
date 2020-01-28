@@ -84,11 +84,19 @@ body[black] .font-info {
 
 body[black] .show-size {
 	background-color: #222222;
-	color: rgb(238, 238, 238);
+	color: white;
 }
 body[black] .font-size-option {
-	/* background-color: #222222; */
+	/* background-color: rgb(238, 238, 238); */
 	color: rgb(238, 238, 238);
+}
+
+body[black] .selected {
+	background-color: #ffe3e3;
+	color: #ff5252;
+}
+body[black] .font-size-option:hover {
+	color: #222222;
 }
 
 body[black] footer {
@@ -392,6 +400,7 @@ main {
 footer {
 	height: 2rem;
 	background-color: white;
+	color: var(--g-font-color-grey);
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -417,6 +426,9 @@ footer {
 .copyright-container {
 	text-align: center;
 	font-size: 0.7rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #copyright {

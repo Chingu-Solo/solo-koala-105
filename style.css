@@ -225,17 +225,25 @@ main {
 	display: flex;
 	font-size: 1.1rem;
 	z-index: 10;
-	/* padding: 10px; */
 }
-
-/* .show-size {
-	padding: 20px;
-} */
 
 .font-size-option {
 	display: block;
 	padding: 5px;
-	/* padding: 5px; */
+	width: 100%;
+}
+
+.font-size-option:hover {
+	background-color: #ebebeb;
+}
+
+.selected {
+	background-color: #ffe3e3;
+	color: #ff5252;
+}
+.selected:hover {
+	background-color: #ffe3e3;
+	/* color: #ff5252; */
 }
 
 .down-arrow {
@@ -255,7 +263,7 @@ main {
 		0 1px 10px 0 rgba(0, 0, 0, 0.12);
 	z-index: 10;
 	border-radius: 10px;
-	padding: 0 20px 20px 0;
+	width: 5rem;
 	overflow: scroll;
 }
 .show-size ul {

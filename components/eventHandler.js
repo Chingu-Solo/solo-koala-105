@@ -23,6 +23,7 @@ const EventHandler = () => {
 	const changeFontSizeBtn = document.querySelector(".change-font-size__btn");
 	let fontsSizeOptions = document.querySelectorAll(".font-size-option");
 	const refreshBtn = document.querySelector(".refresh__btn");
+	let selectedBtn = document.querySelector(".selected");
 
 	let addFonts = document.querySelectorAll(".add-font");
 
@@ -37,7 +38,10 @@ const EventHandler = () => {
 	// * Loop over font size button to fire a click event listener on each of them and update the font size in each spanEditable
 	for (let fontSizeOption of fontsSizeOptions) {
 		fontSizeOption.addEventListener("click", e => {
+			if (selectedBtn) selectedBtn.classList.remove("selected");
+			fontSizeOption.classList.add("selected");
 			changeFontSizeBtn.textContent = `${e.target.textContent}px`;
+			/* changeFontSize.classList.add("selected"); */
 			for (let s of spanEditable) {
 				s.style.fontSize = `${e.target.textContent}px`;
 			}
@@ -193,9 +197,9 @@ const EventHandler = () => {
 				}
 				handleFontsOnLocalStorage();
 			} else {
-				const filterFonts = fonts.stock.items.filter((
-					font // or fonts.stock.items.filter
-				) => font.family.toLowerCase().includes(e.target.value.toLowerCase()));
+				const filterFonts = fonts.stock.items.filter(font =>
+					font.family.toLowerCase().includes(e.target.value.toLowerCase())
+				);
 				for (let filterFont of filterFonts) {
 					fonts.handleFontsLoad(filterFont);
 				}

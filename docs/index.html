@@ -13,7 +13,7 @@
 
 <header>
   <a href="./">Home</a>
-  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
@@ -38,8 +38,46 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="solo-koala-105">solo-koala-105</h1><p>See-your-Chingu-homepage-for-what-project-to-build -&gt; <a href="https://chingu.io/">https://chingu.io/</a> | Solo Koala | Twitter: <a href="https://twitter.com/ChinguCollabs">https://twitter.com/ChinguCollabs</a></p>
-</div>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="favorite-fonts--google-fonts-clone-">Favorite Fonts (Google Fonts clone)</h1><h3 id="a--strong--a-href--https---www-chingu-io--chingu--a---strong--tier-1-solo-project">A <strong><a href="https://www.chingu.io">Chingu</a></strong> Tier 1 Solo Project</h3><h2 id="overview">Overview</h2><p><img src="/docs/image/Capture d&#x2019;&#xE9;cran 2020-01-28 &#xE0; 08.46.15.png" alt="Favorite Fonts homepage"></p>
+<p>Favorite Fonts is a single page application that mimics some of the features of Google Fonts.</p>
+<h2 id="technology">Technology</h2><p>Vanilla JavaScript, CSS, HTML</p>
+<h2 id="note">Note</h2><p>My choice was to work in pure Vanilla JavaScript before adding any framework / library. However level 2 requirements have been applied</p>
+<h2 id="requirements">Requirements</h2><h3 id="structure">Structure</h3><ul>
+<li>[x]  Header with minor navigation (Logo and Catalog/Featured/Articles/About link list)</li>
+<li>[x]  Nav with Major navigation / page-manipulation (search, custom text, font-size, dark/light mode, grid/list mode, and reset)</li>
+<li>[x]  Main section to contain the font cards</li>
+<li>[x]  Font cards which display the Font Name, the font category, the sample text, and an add button</li>
+<li>[x]  Footer section with your developer information</li>
+</ul>
+<h3 id="style">Style</h3><ul>
+<li>[x] Sample text in each card should be displayed in the corresponding font</li>
+<li>[x] Buttons/links should be evident (make sure the cursor changes, etc.)</li>
+<li>[x] Implement a way to handle overflow from sample text in font cards, as the font size is adjustable</li>
+</ul>
+<h3 id="functionality">Functionality</h3><ul>
+<li>[x] Text typed into the custom text (type something) box should immediately change the sample text displayed in each font card</li>
+<li>[x] The sample text should return to the default sample if the input box (type something) no longer has any input (ex. input == &quot;&quot;)</li>
+<li>[x] Font size chooser should have at least four sizes and should immediately change the sample text font size in each font card</li>
+<li>[x] Implement the clickable &apos;reset&apos; icon on the far right of the major navigation; it should make the page appear as if the user reloaded the page (do not actually reload the page)<h5 id="-requirements-from-tier-2-">(Requirements from Tier 2)</h5></li>
+<li>[x] On load, the page should display fonts sorted by current popularity, as returned by the Google Fonts Developer API (see below); this call should be server-side</li>
+<li>[x]  The search feature should be fully functional and display matching fonts (it&apos;s up to you if you want to do this via a &apos;submit&apos; or through onchange)</li>
+<li>[x] When the search input is cleared (via reset button or manually), the fonts should automaticaly display sorted by poplarity again</li>
+<li>[x] Fonts from the Developer API should be retrieved on the back-end and sent to the client (see below)</li>
+</ul>
+<h3 id="extras--not-required-">Extras (Not Required)</h3><ul>
+<li>[x] Include a back-to-top button that allows users to scroll to the top once the top of the page is out of view</li>
+<li>[x] Make your design fully responsive (small/large/portrait/landscape, etc.)</li>
+<li>[x] Implement the light/dark mode toggle buttons</li>
+<li>[x] Implement the change display icon so you can flip between a grid and list layout for the font cards</li>
+<li>[x] Add or remove your favorites fonts to your local storage with the add/remove button</li>
+</ul>
+<h2 id="installation">Installation</h2><pre><code><code class="source-code prettyprint">git clone https://github.com/Chingu-Solo/solo-koala-105.git 
+cd &lt;your directory&gt;/solo-koala-105
+create a config.js file and add your API Key in it as so: 
+export const config = {
+    apiKey: &lt;your Google Font API Key&gt;
+};</code>
+</code></pre></div>
 </div>
 
 <footer class="footer">

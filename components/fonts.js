@@ -115,6 +115,8 @@ export class Fonts {
 		for (let f of JSON.parse(getFontFromLocalStorage)) {
 			this.stock.items.map((el, i) => {
 				if (el.family === f) {
+					console.log(el);
+
 					this.stock.items.splice(i, 1);
 					el.added = "added";
 					this.stock.items.splice(0, 0, el);
@@ -207,12 +209,16 @@ export class Fonts {
 		if (search) {
 			this.gridList.innerHTML = "";
 			for (let f of font) {
-				const templateFont = Template(f);
-				this.gridList.appendChild(templateFont);
+				Template(f);
+				/* const templateFont = Template(f);
+				this.gridList.appendChild(templateFont); */
 			}
 		} else {
-			const templateFont = Template(font);
-			this.gridList.appendChild(templateFont);
+			Template(font);
+			/* const templateFont = Template(font);
+			console.log(templateFont); */
+
+			/* this.gridList.appendChild(templateFont); */
 		}
 	}
 

@@ -115,8 +115,6 @@ export class Fonts {
 		for (let f of JSON.parse(getFontFromLocalStorage)) {
 			this.stock.items.map((el, i) => {
 				if (el.family === f) {
-					console.log(el);
-
 					this.stock.items.splice(i, 1);
 					el.added = "added";
 					this.stock.items.splice(0, 0, el);

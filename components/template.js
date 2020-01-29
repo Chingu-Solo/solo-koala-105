@@ -14,7 +14,6 @@ const HTMLTemplate = fonts => {
 		let randomNb = Math.floor(Math.random() * quotes.length);
 		let randomQuote = quotes[randomNb];
 		let templateFont = document.getElementById("template-font");
-		console.log(templateFont);
 		let cloneTemplate = document.importNode(templateFont.content, true);
 		let h1 = cloneTemplate.querySelector("h1");
 		h1.textContent = fonts.family;

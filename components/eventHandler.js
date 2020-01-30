@@ -221,7 +221,7 @@ const EventHandler = () => {
 		}
 
 		// Debounces handleResearchCall method
-		debounceFunction(handleResearchCall, 1000);
+		debounceFunction(handleResearchCall, 500);
 	});
 
 	// * Load fonts an scroll

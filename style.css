@@ -337,6 +337,7 @@ main {
 
 .font-info h2 {
 	color: var(--g-font-color-grey);
+	padding-bottom: 10px;
 }
 
 .font-info .material-icons {
@@ -346,7 +347,7 @@ main {
 .font-info span {
 	overflow-wrap: break-word;
 	display: inline-block;
-	padding-top: 30px;
+	padding-bottom: 30px;
 	max-width: 25rem;
 }
 

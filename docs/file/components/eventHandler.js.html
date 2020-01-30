@@ -42,8 +42,6 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fonts from &quot;./fonts.js&quot;;
 import quotes from &quot;./quotes.js&quot;;
 
-/* import Template from &quot;./template.js&quot;; */
-
 /**
  * Handle all events between the DOM and {@link fonts}
  *
@@ -69,10 +67,6 @@ const EventHandler = () =&gt; {
 
 	let addFonts = document.querySelectorAll(&quot;.add-font&quot;);
 
-	/* const head = document.getElementsByTagName(&quot;head&quot;)[0];
-	const link = document.createElement(&quot;link&quot;); */
-	/* const changeFontSize = document.querySelector(&quot;.down-arrow&quot;); */
-
 	const refreshDOM = () =&gt; {
 		fontInfoContainer = document.querySelectorAll(&quot;.font-info&quot;);
 		spanEditable = document.querySelectorAll(&quot;.spanEditable&quot;);
@@ -84,7 +78,11 @@ const EventHandler = () =&gt; {
 	// * Loop over font size button to fire a click event listener on each of them and update the font size in each spanEditable
 	for (let fontSizeOption of fontsSizeOptions) {
 		fontSizeOption.addEventListener(&quot;click&quot;, e =&gt; {
+			let selectedBtn = document.querySelector(&quot;.selected&quot;);
+			if (selectedBtn) selectedBtn.classList.remove(&quot;selected&quot;);
+			fontSizeOption.classList.add(&quot;selected&quot;);
 			changeFontSizeBtn.textContent = `${e.target.textContent}px`;
+			/* changeFontSize.classList.add(&quot;selected&quot;); */
 			for (let s of spanEditable) {
 				s.style.fontSize = `${e.target.textContent}px`;
 			}
@@ -94,6 +92,10 @@ const EventHandler = () =&gt; {
 	// *  Initialize button text-contentand spanEditable font size
 	changeFontSizeBtn.textContent = &quot;40px&quot;;
 	const initFontSize = () =&gt; {
+		for (let fontSizeOption of fontsSizeOptions) {
+			if (fontSizeOption.textContent + &quot;px&quot; === changeFontSizeBtn.textContent)
+				fontSizeOption.classList.add(&quot;selected&quot;);
+		}
 		refreshDOM();
 		for (let s of spanEditable) {
 			s.style.fontSize = `${changeFontSizeBtn.textContent}`;
@@ -113,26 +115,21 @@ const EventHandler = () =&gt; {
 		if (document.body.hasAttribute(&quot;black&quot;))
 			document.body.removeAttribute(&quot;black&quot;);
 		if (gridList.hasAttribute(&quot;wide&quot;)) gridList.removeAttribute(&quot;wide&quot;);
-		/* fonts.fontsList = []; */
 		fonts.refresh();
 		changeFontSizeBtn.textContent = &quot;40px&quot;;
 		initFontSize();
-		/* fonts.fontsListIndexOnScroll = 0; */
-		/* fonts.fontsListIndexOnScroll = 0; */
-		console.log(fonts.fontsList);
-
 		searchFont.value = &quot;&quot;;
 		inputFontTyped.value = &quot;&quot;;
 		fonts.research = false;
-		addFontsOnLocalStorage();
+		handleFontsOnLocalStorage();
 	});
 
-	const addFontsOnLocalStorage = () =&gt; {
+	// * Add or remove font on local storage
+	const handleFontsOnLocalStorage = () =&gt; {
 		refreshDOM();
 		for (let addFont of addFonts) {
 			addFont.addEventListener(&quot;click&quot;, e =&gt; {
 				let retrieveFontFamily = e.target.previousSibling.innerHTML;
-
 				if (addFont.textContent === &quot;add_circle_outline&quot;) {
 					fonts.storeFont(retrieveFontFamily);
 					addFont.classList.add(&quot;animate&quot;);
@@ -149,20 +146,12 @@ const EventHandler = () =&gt; {
 						addFont.classList.remove(&quot;animate&quot;);
 					}, 500);
 				}
-				/* addFont.textContent = &quot;remove_circle_outline&quot; */
-				/* addFont.classList.remove(&quot;test&quot;); */
 			});
 		}
 	};
-	addFontsOnLocalStorage();
+	handleFontsOnLocalStorage();
 
-	/* for (let addFont of addFonts) {
-		console.log(&quot;qdfqf&quot;);
-		if (addFont.classList.contains(&quot;added&quot;)) {
-			addFont.textContent = &quot;remove_circle_outline&quot;;
-		}
-	} */
-
+	// * Handle the toggle theme
 	togglethemeBtn.addEventListener(&quot;click&quot;, () =&gt; {
 		const body = document.body;
 		if (toggleColor) {
@@ -173,11 +162,13 @@ const EventHandler = () =&gt; {
 		toggleColor = !toggleColor;
 	});
 
+	// * Return random number to get a random quote from quotes array
 	const getRandomQuotes = () =&gt; {
 		let randomNb = Math.floor(Math.random() * quotes.length);
 		return quotes[randomNb];
 	};
 
+	// * Fire the input input typed text to retrieve it in the span editable
 	inputFontTyped.addEventListener(&quot;input&quot;, e =&gt; {
 		spanEditable = document.querySelectorAll(&quot;.spanEditable&quot;);
 		for (let i = 0; i &lt; spanEditable.length; i++) {
@@ -189,16 +180,18 @@ const EventHandler = () =&gt; {
 		}
 	});
 
+	// * Toggle between view
 	toggleViewBtn.addEventListener(&quot;click&quot;, () =&gt; {
 		gridList.hasAttribute(&quot;wide&quot;)
 			? gridList.removeAttribute(&quot;wide&quot;)
 			: gridList.setAttribute(&quot;wide&quot;, &quot;&quot;);
 	});
 
+	// * Fire the on scroll method from window
 	window.onscroll = () =&gt; {
 		onScroll();
 	};
-
+	// * Handle deferent action according to the srcolling
 	const onScroll = () =&gt; {
 		let toolbar = document.querySelector(&quot;.global-toolbar&quot;);
 		if (
@@ -225,6 +218,7 @@ const EventHandler = () =&gt; {
 		}
 	};
 
+	// * Handle research with a debouncing function in order to limit the call to stock to 1 sec from last input event call. This way it increase performance by limiting t
 	let timerId;
 	searchFont.addEventListener(&quot;input&quot;, e =&gt; {
 		var debounceFunction = function(func, delay) {
@@ -235,25 +229,22 @@ const EventHandler = () =&gt; {
 			timerId = setTimeout(func, delay);
 		};
 
-		function makeAPICall() {
+		function handleResearchCall() {
 			fonts.refresh();
 			refreshDOM();
 			initFontSize();
 			if (e.target.value.length === 0) {
-				/* fonts.refresh();
-				refreshDOM();
-				initFontSize(); */
 				fonts.research = false;
 				if (inputFontTyped.value.length &gt; 0) {
 					for (let s of spanEditable) {
 						s.textContent = inputFontTyped.value;
 					}
 				}
-				addFontsOnLocalStorage();
+				handleFontsOnLocalStorage();
 			} else {
-				const filterFonts = fonts.stock.items.filter((
-					font // or fonts.stock.items.filter
-				) =&gt; font.family.toLowerCase().includes(e.target.value.toLowerCase()));
+				const filterFonts = fonts.stock.items.filter(font =&gt;
+					font.family.toLowerCase().includes(e.target.value.toLowerCase())
+				);
 				for (let filterFont of filterFonts) {
 					fonts.handleFontsLoad(filterFont);
 				}
@@ -266,19 +257,16 @@ const EventHandler = () =&gt; {
 						s.textContent = inputFontTyped.value;
 					}
 				}
-				addFontsOnLocalStorage();
+				handleFontsOnLocalStorage();
 			}
-			/* fonts.fontsListIndexOnScroll = 5; */
 		}
 
-		// Debounces makeAPICall method
-		debounceFunction(makeAPICall, 2000);
+		// Debounces handleResearchCall method
+		debounceFunction(handleResearchCall, 1000);
 	});
 
 	// * Load fonts an scroll
 	document.addEventListener(&quot;scroll&quot;, e =&gt; {
-		/* console.log(window.pageYOffset); */
-
 		let t = document.querySelector(&quot;footer&quot;);
 		if (window.pageYOffset &lt;= 100) {
 			t.style.display = &quot;flex&quot;;
@@ -293,13 +281,6 @@ const EventHandler = () =&gt; {
 		if (endPointScroll === 0) return;
 		if (endPointScroll &lt; 200) {
 			refreshDOM();
-			/* fonts.fontsList = [] */
-			/* console.log(fonts.fontsList.length);
-			if (fonts.fontsList.length === 15) {
-				gridList.innerHTML = &quot;&quot;;
-			} */
-			/* console.log(endPointScroll); */
-
 			fonts.handleFontsLoad(&quot;scroll&quot;);
 			initFontSize();
 			if (inputFontTyped.value.length &gt; 0) {
@@ -307,9 +288,7 @@ const EventHandler = () =&gt; {
 					s.textContent = inputFontTyped.value;
 				}
 			}
-			addFontsOnLocalStorage();
-			console.log(fonts.fontsList);
-			console.log(fonts.stock);
+			handleFontsOnLocalStorage();
 		}
 	});
 };

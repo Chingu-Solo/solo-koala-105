@@ -14,11 +14,11 @@ export class Fonts {
 	 */
 	constructor() {
 		/**
-		 * @type {Object}
+		 * @type {string[]}
 		 */
 		(this.fontsList = []),
 			/**
-			 * @type {Object}
+			 * @type {string[]}
 			 */
 			(this.stock = []),
 			/**
@@ -46,11 +46,11 @@ export class Fonts {
 			 */
 			(this.gridList = document.querySelector(".grid-list")),
 			/**
-			 * @type {Object}
+			 * @type {string[]}
 			 */
 			(this.localStorageFont = []),
 			/**
-			 * @type {Object}
+			 * @type {string[]}
 			 */
 			(this.finalURL = []);
 	}

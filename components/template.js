@@ -2,6 +2,7 @@ import quotes from "./quotes.js";
 /* import fonts from "./fonts.js"; */
 
 /**
+ * Create an HTML Template for each font container
  *
  * @param {Object} fonts Font object as it is return by Google Font API
  * @param {string} fonts.family Fonts family property

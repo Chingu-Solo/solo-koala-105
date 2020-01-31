@@ -55,7 +55,7 @@ My choice was to work in pure Vanilla JavaScript before adding any framework / l
 ```
 git clone https://github.com/Chingu-Solo/solo-koala-105.git 
 cd <your directory>/solo-koala-105
-create a config.js file and add your API Key in it as so: 
+create a config.js file in your root directory and add your API Key as so: 
 export const config = {
 	apiKey: <your Google Font API Key>
 };```

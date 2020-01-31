@@ -1,3 +1,6 @@
 # misc
 config.js
 .vscode
+
+#dependency
+node_modules/

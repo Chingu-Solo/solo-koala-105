@@ -207,12 +207,16 @@ export class Fonts {
 		if (search) {
 			this.gridList.innerHTML = "";
 			for (let f of font) {
-				const templateFont = Template(f);
-				this.gridList.appendChild(templateFont);
+				Template(f);
+				/* const templateFont = Template(f);
+				this.gridList.appendChild(templateFont); */
 			}
 		} else {
-			const templateFont = Template(font);
-			this.gridList.appendChild(templateFont);
+			Template(font);
+			/* const templateFont = Template(font);
+			console.log(templateFont); */
+
+			/* this.gridList.appendChild(templateFont); */
 		}
 	}
 

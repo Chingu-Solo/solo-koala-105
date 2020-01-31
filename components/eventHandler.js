@@ -88,7 +88,9 @@ const EventHandler = () => {
 		refreshDOM();
 		for (let addFont of addFonts) {
 			addFont.addEventListener("click", e => {
-				let retrieveFontFamily = e.target.previousSibling.innerHTML;
+				let retrieveFontFamily = e.target.previousElementSibling.innerHTML;
+				/* let retrieveFontFamily = e.target.previousSibling.innerHTML; */
+
 				if (addFont.textContent === "add_circle_outline") {
 					fonts.storeFont(retrieveFontFamily);
 					addFont.classList.add("animate");
@@ -100,6 +102,7 @@ const EventHandler = () => {
 				} else if (addFont.textContent === "remove_circle_outline") {
 					fonts.removeFont(retrieveFontFamily);
 					addFont.classList.add("animate");
+					addFont.classList.remove("added");
 					setTimeout(() => {
 						addFont.textContent = "add_circle_outline";
 						addFont.classList.remove("animate");

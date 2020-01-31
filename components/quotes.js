@@ -21,6 +21,3 @@ const quotes = [
 ];
 
 export default quotes;
-
-/* let test = Math.floor(Math.random() * quotes.length);
-console.log(quotes[test]); */

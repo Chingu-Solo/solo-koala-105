@@ -208,15 +208,9 @@ export class Fonts {
 			this.gridList.innerHTML = "";
 			for (let f of font) {
 				Template(f);
-				/* const templateFont = Template(f);
-				this.gridList.appendChild(templateFont); */
 			}
 		} else {
 			Template(font);
-			/* const templateFont = Template(font);
-			console.log(templateFont); */
-
-			/* this.gridList.appendChild(templateFont); */
 		}
 	}
 

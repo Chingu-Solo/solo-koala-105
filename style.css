@@ -10,21 +10,19 @@ html {
 	font-size: 1rem;
 }
 
-.down-arrow {
-	color: #ff5252 !important;
-}
-.up-arrow {
-	color: #ff5252 !important;
-
-	transform: scaleX(-1) !important;
-	-moz-transform: scaleX(-1) !important;
-	-webkit-transform: scaleX(-1) !important;
-	-ms-transform: scaleX(-1) !important;
-}
-
 body {
 	--g-border-color: #00000024;
 	--g-font-color-grey: #00000099;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+input {
+	background-color: inherit;
 }
 
 .flex {
@@ -34,27 +32,23 @@ body {
 	align-items: center;
 }
 
-button {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-/* :root {
-	--g-border-color: #00000024;
-	--g-font-color-grey: #00000099;
-} */
-
 .material-icons {
 	cursor: pointer;
 }
 
-[contenteditable]:focus {
-	outline: 0px solid transparent;
+.down-arrow {
+	color: #ff5252 !important;
+}
+.up-arrow {
+	color: #ff5252 !important;
+	transform: scaleX(-1) !important;
+	-moz-transform: scaleX(-1) !important;
+	-webkit-transform: scaleX(-1) !important;
+	-ms-transform: scaleX(-1) !important;
 }
 
-input {
-	background-color: inherit;
+[contenteditable]:focus {
+	outline: 0px solid transparent;
 }
 
 /********** GLOBAL BLACK THEME **********/
@@ -74,6 +68,7 @@ body[black] input,
 body[black] .change-font-size__btn {
 	color: rgb(238, 238, 238);
 }
+
 body[black] .global-toolbar[fixed-nav] {
 	background-color: #222222;
 }
@@ -87,22 +82,21 @@ body[black] .show-size {
 	color: white;
 }
 body[black] .font-size-option {
-	/* background-color: rgb(238, 238, 238); */
 	color: rgb(238, 238, 238);
+}
+
+body[black] .font-size-option:hover {
+	color: #222222;
 }
 
 body[black] .selected {
 	background-color: #ffe3e3;
 	color: #ff5252;
 }
-body[black] .font-size-option:hover {
-	color: #222222;
-}
 
 body[black] footer {
 	background-color: #222222;
 	color: rgb(238, 238, 238);
-	/* color: black; */
 }
 
 /********** HEADER **********/
@@ -130,19 +124,9 @@ header {
 	color: var(--g-font-color-grey);
 }
 
-.logo {
-	/* background-image: url("https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_dark_color_74x24dp.png"); */
-	/* background-image: url("https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_dark_color_74x24dp.png");
-	width: 74px;
-	height: 24px;
-	background-size: 74px 24px;
-	display: inline-block;
-	opacity: 0.6; */
-	font-weight: 600;
-}
-
 .brand,
 .logo {
+	font-weight: 600;
 	font-family: "Product Sans", Arial, Helvetica, sans-serif;
 	font-size: 1.4rem;
 	text-rendering: optimizeLegibility;
@@ -153,12 +137,10 @@ header {
 /********** MAIN **********/
 
 main {
-	/* padding: 1.3rem 4rem; */
 	margin: 0 10rem;
 }
 
 .global-toolbar {
-	/* position: fixed; */
 	border: 1px solid var(--g-border-color);
 	border-radius: 50px;
 	display: flex;
@@ -167,17 +149,13 @@ main {
 	height: 35px;
 	margin-bottom: 30px;
 	padding: 5px;
-	/* transition: all 2s ease-out; */
 }
+
 .global-toolbar[fixed-nav] {
 	position: sticky;
-	/* position: fixed; */
-	/* width: 100%; */
 	top: 0px;
 	left: 0px;
-	/* margin-bottom: 40px; */
 	background-color: white;
-	/* transform: scale(1, 0.2); */
 }
 
 .global-toolbar .material-icons {
@@ -198,7 +176,6 @@ main {
 	position: relative;
 	flex-wrap: nowrap;
 	width: 25%;
-	/* padding: 10px; */
 }
 
 .search-font input {
@@ -208,7 +185,6 @@ main {
 .toggle-theme {
 	position: relative;
 	padding-left: 10px;
-	/* border-left: 1px solid var(--g-border-color); */
 }
 
 .type-something {
@@ -251,7 +227,6 @@ main {
 }
 .selected:hover {
 	background-color: #ffe3e3;
-	/* color: #ff5252; */
 }
 
 .down-arrow {
@@ -282,17 +257,6 @@ main {
 	padding: 5px 0;
 	cursor: pointer;
 }
-/* .change-font-size__btn::after {
-	color: #ff5252;
-	content: "\0025bc";
-	position: relative;
-	font-size: 13px;
-	transform: scaleY(0.5) scaleX(1);
-	top: 0;
-	right: -2px;
-	background: transparent !important;
-	cursor: pointer;
-} */
 
 .refresh {
 	z-index: 1;
@@ -311,19 +275,12 @@ main {
 }
 
 .font-info {
-	/* min-width: 45%; */
 	min-width: 23rem;
-	/* max-width: 100%; */
 	max-width: 23rem;
 	min-height: 300px;
 	border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
-/* ! check this: is it useless? */
-/* .font-info[wide] {
-	min-width: 100%;
-	min-height: 300px;
-	border-top: 1px solid rgba(0, 0, 0, 0.4);
-} */
+
 .grid-list[wide] span {
 	max-width: 100%;
 }
@@ -365,10 +322,6 @@ main {
 	min-width: 0;
 }
 
-.fontest {
-	font-family: "Open Sans Condensed", sans-serif;
-}
-
 /********** GO TO TOP BUTTON **********/
 
 #go-to-top {
@@ -381,6 +334,8 @@ main {
 	right: 20px;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
+
+/********** ANIMATION **********/
 
 .animate {
 	animation: fadeOutUp 0.5s;
@@ -398,6 +353,18 @@ main {
 	}
 }
 
+@keyframes fadeOut {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+/********** FOOTER **********/
+
 footer {
 	height: 2rem;
 	background-color: white;
@@ -411,17 +378,6 @@ footer {
 	padding: 10px 10px 20px 10px;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 	animation: fadeOut 1s;
-}
-
-@keyframes fadeOut {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
-		/* transform: translate3d(0, -100%, 0); */
-	}
 }
 
 .copyright-container {
@@ -481,7 +437,7 @@ footer img {
 	height: 25px;
 }
 
-/********** Media queries **********/
+/********** MEDIA QUERIES **********/
 
 @media screen and (max-width: 1440px) {
 	main {
@@ -516,7 +472,6 @@ footer img {
 	}
 	header {
 		font-size: 0.6rem;
-		/* padding: 1rem; */
 	}
 }
 @media screen and (max-width: 408px) {
@@ -528,9 +483,6 @@ footer img {
 	.logo-brand-container {
 		margin-bottom: 10px;
 	}
-	/* .font-info {
-		min-width: 15rem;
-	} */
 	.search-font {
 		width: 40%;
 	}
